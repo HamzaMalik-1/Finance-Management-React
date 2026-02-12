@@ -1,8 +1,12 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { motion, AnimatePresence } from "motion/react";
 import { useTranslation } from "react-i18next";
 import { useDispatch } from "react-redux";
 import { useNavigate } from "react-router-dom";
+import { useForm } from "react-hook-form";
+import { zodResolver } from "@hookform/resolvers/zod";
+import { z } from "zod";
+
 import { useLoginMutation, useSignupMutation } from "../store/api/authApi";
 import { setCredentials } from "../store/slices/authSlice";
 
@@ -16,68 +20,65 @@ const LoginSignup = () => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
 
-  // 1. RTK Query Hooks
   const [login, { isLoading: isLoginLoading }] = useLoginMutation();
   const [signup, { isLoading: isSignupLoading }] = useSignupMutation();
 
-  // 2. Form State
-  const [formData, setFormData] = useState({
-    email: "",
-    username: "",
-    password: "",
+  const isRTL = i18n.language === "ur";
+
+  // 1. Define Schema inside component or import it
+  const schema = z.object({
+    email: z.string().email(t("auth.invalid_email")),
+    password: z.string().min(8, t("auth.password_short")),
+    username: isLogin ? z.string().optional() : z.string().min(3, t("auth.username_short")),
   });
 
-  const isRTL = i18n.language === "ur";
+  // 2. Initialize React Hook Form
+  const {
+    register,
+    handleSubmit,
+    watch,
+    reset,
+    formState: { errors },
+  } = useForm({
+    resolver: zodResolver(schema),
+    defaultValues: { email: "", username: "", password: "" },
+    shouldUnregister: true,
+  });
+
+  // Watch values for the floating label logic in AnimatedSpeechInput
+  const formValues = watch();
 
   const toggleMode = () => {
     setIsLogin(!isLogin);
-    console.log("ho rha hai")
-    // Optional: Clear form when switching
-    setFormData({ email: "", username: "", password: "" });
+    reset({ email: "", username: "", password: "" }); 
   };
 
-  const handleInputChange = (e) => {
-    setFormData({ ...formData, [e.target.name]: e.target.value });
-  };
-
-  // 3. Auth Submission Logic
- const handleSubmit = async (e) => {
-  if (e) e.preventDefault();
-  
-  try {
-    if (isLogin) {
-      const response = await login({ 
-        email: formData.email, 
-        password: formData.password 
-      }).unwrap();
-      
-      // ✅ FIX: Pass the 'data' object from your JSON to the dispatcher
-      // This contains id, email, username, and token
-      dispatch(setCredentials(response.data)); 
-      
-      navigate("/dashboard");
-    } else {
-      await signup(formData).unwrap();
-      setIsLogin(true);
+  // 3. Form Submission
+  const onSubmit = async (data) => {
+    try {
+      if (isLogin) {
+        const response = await login({ 
+          email: data.email, 
+          password: data.password 
+        }).unwrap();
+        dispatch(setCredentials(response.data)); 
+        navigate("/dashboard");
+      } else {
+        await signup(data).unwrap();
+        setIsLogin(true);
+      }
+    } catch (err) {
+      // Global middleware will handle the Toast notification
     }
-  } catch (err) {
-    console.error("Authentication failed:", err);
-  }
-};
-console.log("Is setCredentials a function?", typeof setCredentials === 'function');
-console.log("Is dispatch available?", typeof useDispatch === 'function');
-console.log("formData",formData)
-  return (
-    <div 
-      dir={isRTL ? "rtl" : "ltr"} 
-      className="min-h-screen bg-app-bg text-app-text flex items-center justify-center p-4 transition-colors duration-300"
-    >
-    <div className="fixed top-5 right-5 flex items-center gap-3 z-[100] rtl:right-auto rtl:left-5">
-  <LanguageSwitcher />
-  <ThemeToggle /> 
-</div>
+  };
 
-      {/* Main Container */}
+  return (
+    <div dir={isRTL ? "rtl" : "ltr"} className="min-h-screen bg-app-bg text-app-text flex items-center justify-center p-4 transition-colors duration-300">
+      <div className="fixed top-5 right-5 flex items-center gap-3 z-[100] rtl:right-auto rtl:left-5">
+        <LanguageSwitcher />
+        <ThemeToggle /> 
+      </div>
+
       <div className="relative w-full max-w-md md:max-w-4xl min-h-[550px] md:h-[70vh] bg-card-bg rounded-2xl overflow-hidden shadow-2xl flex flex-col md:flex-row border border-zinc-200 dark:border-zinc-800">
         
         {/* ANIMATED OVERLAY */}
@@ -106,50 +107,40 @@ console.log("formData",formData)
 
         {/* FORMS */}
         <div className="flex w-full h-full relative">
-          {/* Login Side */}
           <div className={`w-full md:w-1/2 flex flex-col justify-center p-8 md:p-12 ${!isLogin && 'hidden md:flex'}`}>
              <AnimatePresence mode="wait">
                {isLogin && (
-                 <motion.div 
-                key="login-container"
-                   initial={{ opacity: 0, y: 10 }} 
-                   animate={{ opacity: 1, y: 0 }} 
-                   exit={{ opacity: 0, y: 10 }}
-                   className="w-full"
-                 >
-                   <LoginForm 
-                    t={t} 
-                    toggleMode={toggleMode} 
-                    formData={formData} 
-                    onChange={handleInputChange} 
-                    onSubmit={handleSubmit}
-                    isLoading={isLoginLoading}
-                    isLogin={isLogin}
-                   />
+                 <motion.div key="login-container" initial={{ opacity: 0, y: 10 }} animate={{ opacity: 1, y: 0 }} exit={{ opacity: 0, y: 10 }} className="w-full">
+                    <LoginForm 
+                      t={t} 
+                      register={register} 
+                      handleSubmit={handleSubmit(onSubmit)} 
+                      errors={errors} 
+                      isLoading={isLoginLoading} 
+                      isLogin={isLogin} 
+                      values={formValues} 
+                      toggleMode={toggleMode}
+                    />
                  </motion.div>
                )}
              </AnimatePresence>
           </div>
 
-          {/* Signup Side */}
           <div className={`w-full md:w-1/2 flex flex-col justify-center p-8 md:p-12 ${isLogin && 'hidden md:flex'}`}>
              <AnimatePresence mode="wait">
                {!isLogin && (
-                 <motion.div 
-                   key="signup-container"
-                   initial={{ opacity: 0, y: 10 }} 
-                   animate={{ opacity: 1, y: 0 }} 
-                   exit={{ opacity: 0, y: 10 }}
-                   className="w-full"
-                 >
-                   <SignupForm 
-                    t={t} 
-                    toggleMode={toggleMode} 
-                    formData={formData} 
-                    onChange={handleInputChange} 
-                    onSubmit={handleSubmit}
-                    isLoading={isSignupLoading}
-                   />
+                 <motion.div key="signup-container" initial={{ opacity: 0, y: 10 }} animate={{ opacity: 1, y: 0 }} exit={{ opacity: 0, y: 10 }} className="w-full">
+                    <SignupForm 
+                      t={t} 
+                      register={register} 
+                      handleSubmit={handleSubmit(onSubmit)} 
+                      errors={errors} 
+                      isLoading={isSignupLoading} 
+                      values={formValues} 
+                      toggleMode={toggleMode}
+                      isLogin={isLogin}
+                    />
+
                  </motion.div>
                )}
              </AnimatePresence>
@@ -160,42 +151,53 @@ console.log("formData",formData)
   );
 };
 
-const LoginForm = ({ t, toggleMode, formData, onChange, onSubmit, isLoading,isLogin }) => (
-  <form onSubmit={onSubmit} className="space-y-6">
-    <div style={{ opacity: 0, position: 'absolute', top: 0, left: 0, height: 0, width: 0, overflow: 'hidden', zIndex: -1 }}>
-      <input type="text" name="username" tabIndex="-1" autoComplete="off" />
-      <input type="email" name="email" tabIndex="-1" autoComplete="off" />
-      <input type="password" name="password" tabIndex="-1" autoComplete="new-password" />
-    </div>
+// --- Sub-Components ---
+
+const LoginForm = ({ t, register, handleSubmit, errors, isLoading, isLogin, values, toggleMode }) => (
+  <form onSubmit={handleSubmit} className="space-y-6">
+  <div 
+  aria-hidden="true"
+  style={{ 
+    opacity: 0, 
+    position: 'absolute', 
+    top: 0, 
+    left: 0, 
+    height: '1px', // Use a tiny height instead of 0
+    width: '1px', 
+    overflow: 'hidden', 
+    zIndex: -1 
+  }}
+>
+  {/* The browser will "hit" these first because they appear earlier in the DOM */}
+  <input type="text" name="email" tabIndex="-1" autoComplete="username" />
+  <input type="password" name="password" tabIndex="-1" autoComplete="current-password" />
+</div>
     <div className="space-y-2">
       <h3 className="text-2xl md:text-3xl font-bold">{t("auth.sign_in")}</h3>
       <p className="text-zinc-500 text-sm">{t("auth.welcome_msg")}</p>
     </div>
+
     <div className="space-y-2">
       <AnimatedSpeechInput 
         placeholder="auth.email" 
         type="email" 
-        name="email"
-        value={formData.email}
-        onChange={onChange}
+        {...register("email")}
+        key={isLogin ? "login-email" : "signup-email"}
+        value={values.email}
+        error={errors.email?.message}
         autoComplete={isLogin ? "off" : "new-password"}
-        required
       />
       <AnimatedSpeechInput 
         placeholder="auth.password" 
         type="password" 
-        name="password"
-        value={formData.password}
-        onChange={onChange}
-        required
-      autoComplete={isLogin ? "off" : "new-password"}
+        {...register("password")}
+        value={values.password}
+        error={errors.password?.message}
+        autoComplete={isLogin ? "off" : "new-password"}
       />
     </div>
-    <button 
-      type="submit"
-      disabled={isLoading}
-      className="w-full bg-indigo-600 text-white py-3.5 rounded-xl font-bold shadow-lg hover:bg-indigo-700 transition-all active:scale-[0.98] disabled:opacity-70"
-    >
+
+    <button type="submit" disabled={isLoading} className="w-full bg-indigo-600 text-white py-3.5 rounded-xl font-bold shadow-lg hover:bg-indigo-700 transition-all active:scale-[0.98] disabled:opacity-70">
       {isLoading ? "..." : t("auth.login_btn")}
     </button>
     <p className="md:hidden text-center text-sm text-zinc-500">
@@ -204,51 +206,56 @@ const LoginForm = ({ t, toggleMode, formData, onChange, onSubmit, isLoading,isLo
   </form>
 );
 
-const SignupForm = ({ t, toggleMode, formData, onChange, onSubmit, isLoading }) => (
-  <form onSubmit={onSubmit} className="space-y-6">
-    <div style={{ opacity: 0, position: 'absolute', top: 0, left: 0, height: 0, width: 0, overflow: 'hidden', zIndex: -1 }}>
-      <input type="text" name="username" tabIndex="-1" autoComplete="off" />
-      <input type="email" name="email" tabIndex="-1" autoComplete="off" />
-      <input type="password" name="password" tabIndex="-1" autoComplete="new-password" />
-    </div>
+const SignupForm = ({ t, register, handleSubmit, errors, isLoading, values, toggleMode,isLogin }) => (
+  <form onSubmit={handleSubmit} className="space-y-6">
+<div 
+  aria-hidden="true"
+  style={{ 
+    opacity: 0, 
+    position: 'absolute', 
+    top: 0, 
+    left: 0, 
+    height: '1px', // Use a tiny height instead of 0
+    width: '1px', 
+    overflow: 'hidden', 
+    zIndex: -1 
+  }}
+>
+  {/* The browser will "hit" these first because they appear earlier in the DOM */}
+  <input type="text" name="email" tabIndex="-1" autoComplete="username" />
+  <input type="password" name="password" tabIndex="-1" autoComplete="current-password" />
+</div>
+
     <div className="space-y-2">
       <h3 className="text-2xl md:text-3xl font-bold">{t("auth.sign_up")}</h3>
       <p className="text-zinc-500 text-sm">{t("auth.signup_msg")}</p>
     </div>
+
     <div className="space-y-1">
       <AnimatedSpeechInput 
         placeholder="auth.username" 
-        type="text" 
-        name="username"
-        value={formData.username}
-        onChange={onChange}
-        required
-     
+        {...register("username")}
+        value={values.username}
+        error={errors.username?.message}
       />
       <AnimatedSpeechInput 
         placeholder="auth.email" 
         type="email" 
-        name="email"
-        value={formData.email}
-        onChange={onChange}
-        required
- 
+        {...register("email")}
+        key={isLogin ? "login-email" : "signup-email"}
+        value={values.email}
+        error={errors.email?.message}
       />
       <AnimatedSpeechInput 
         placeholder="auth.password" 
         type="password" 
-        name="password"
-        value={formData.password}
-        onChange={onChange}
-        required
-        autoComplete="off"
+        {...register("password")}
+        value={values.password}
+        error={errors.password?.message}
       />
     </div>
-    <button 
-      type="submit"
-      disabled={isLoading}
-      className="w-full bg-indigo-600 text-white py-3.5 rounded-xl font-bold shadow-lg hover:bg-indigo-700 transition-all active:scale-[0.98] disabled:opacity-70"
-    >
+
+    <button type="submit" disabled={isLoading} className="w-full bg-indigo-600 text-white py-3.5 rounded-xl font-bold shadow-lg hover:bg-indigo-700 transition-all active:scale-[0.98] disabled:opacity-70">
       {isLoading ? "..." : t("auth.create_account_btn")}
     </button>
     <p className="md:hidden text-center text-sm text-zinc-500">

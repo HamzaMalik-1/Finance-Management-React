@@ -23,4 +23,6 @@ i18n
     }
   });
 
+export const isRTL = i18n.language === "ur" || i18n.language === "ar";
+
 export default i18n;

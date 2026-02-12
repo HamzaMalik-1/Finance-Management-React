@@ -1,6 +1,7 @@
 import { configureStore } from '@reduxjs/toolkit';
 import { authApi } from './api/authApi';
 import authReducer from './slices/authSlice';
+import { rtkQueryCustomLogger } from './middleware/rtkQueryErrorLogger';
 
 export const store = configureStore({
   reducer: {
@@ -8,5 +9,5 @@ export const store = configureStore({
     auth: authReducer,
   },
   middleware: (getDefaultMiddleware) =>
-    getDefaultMiddleware().concat(authApi.middleware),
+    getDefaultMiddleware().concat(authApi.middleware).concat(rtkQueryCustomLogger),
 });

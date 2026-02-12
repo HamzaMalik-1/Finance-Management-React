@@ -72,10 +72,10 @@ console.log("formData",formData)
       dir={isRTL ? "rtl" : "ltr"} 
       className="min-h-screen bg-app-bg text-app-text flex items-center justify-center p-4 transition-colors duration-300"
     >
-      <div className="absolute top-5 inset-inline-end-5 flex items-center gap-3 z-[100]">
-        <LanguageSwitcher />
-        <ThemeToggle /> 
-      </div>
+    <div className="fixed top-5 right-5 flex items-center gap-3 z-[100] rtl:right-auto rtl:left-5">
+  <LanguageSwitcher />
+  <ThemeToggle /> 
+</div>
 
       {/* Main Container */}
       <div className="relative w-full max-w-md md:max-w-4xl min-h-[550px] md:h-[70vh] bg-card-bg rounded-2xl overflow-hidden shadow-2xl flex flex-col md:flex-row border border-zinc-200 dark:border-zinc-800">

@@ -3,13 +3,14 @@ import { useTranslation } from "react-i18next";
 import { useTheme } from "../context/ThemeContext";
 import ThemeToggle from "../components/ThemeToggle";
 import LanguageSwitcher from "../components/LanguageSwitcher";
+import { isRTL } from "../i18n/config";
 
 const MainLayout = ({ children }) => {
   const { i18n, t } = useTranslation();
   const { theme } = useTheme();
 
   // Determine if current language is RTL (like Urdu or Arabic)
-  const isRTL = i18n.language === "ur" || i18n.language === "ar";
+//   const isRTL = i18n.language === "ur" || i18n.language === "ar";
 
   return (
     <div 

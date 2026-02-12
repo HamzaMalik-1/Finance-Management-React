@@ -22,11 +22,11 @@ const AnimatedSpeechInput = ({
     tts.speak(textToSpeak, i18n.language);
   };
 
-  // Logic to move to the upper-right corner dynamically
-  // For English: we shift right based on a percentage of the container minus a small padding
-  // For Urdu: we adjust based on the RTL starting position
   const isUrdu = i18n.language === "ur";
-  const xValueLabel = isUrdu ? 10 : "-12%"; 
+
+  // Responsive logic: Small x-offset for LTR to align better with border
+  // On mobile, the scale 0.85 ensures the label stays within the container width
+  const labelX = isUrdu ? 13 : -17; 
 
   return (
     <div className="relative w-full mb-6 group">
@@ -34,25 +34,25 @@ const AnimatedSpeechInput = ({
       <motion.label
         initial={false}
         animate={{
-          x: isFocused || value ? xValueLabel : 0,
-          y: isFocused || value ? -33 : 0, 
+          x: isFocused || value ? labelX : 0,
+          y: isFocused || value ? -34 : 0, 
           scale: isFocused || value ? 0.85 : 1,
           color: isFocused ? "#6366f1" : "#71717a",
         }}
-        transition={{ type: "spring", stiffness: 300, damping: 20 }}
+        transition={{ type: "spring", stiffness: 300, damping: 25 }}
         style={{
-          // Ensure scaling happens from the correct side to prevent overlap
           transformOrigin: isUrdu ? "right" : "left",
-          right: isUrdu ? "12px" : "auto",
-          left: isUrdu ? "auto" : "12px",
+          right: isUrdu ? "1rem" : "auto",
+          left: isUrdu ? "auto" : "1rem",
         }}
-        className="absolute top-3 pointer-events-none px-2 bg-card-bg z-20 text-sm whitespace-nowrap"
+        // Using sm:text-sm for better mobile readability
+        className="absolute top-3 pointer-events-none px-1.5 bg-card-bg z-20 text-sm md:text-base whitespace-nowrap transition-colors"
       >
         {t(placeholder)}
       </motion.label>
 
       {/* 2. THE INPUT FIELD */}
-      <div className="relative flex items-center">
+      <div className="relative flex items-center w-full">
         <input
           {...props}
           value={value}
@@ -63,18 +63,22 @@ const AnimatedSpeechInput = ({
             if (props.onChange) props.onChange(e); 
           }}
           dir={isUrdu ? "rtl" : "ltr"}
-          className="w-full p-3 bg-transparent rounded-lg border border-zinc-700 focus:border-indigo-500 outline-none text-app-text transition-all placeholder-transparent"
+          // Added responsive padding and font-size
+          className={`w-full p-3 text-sm md:text-base bg-transparent rounded-lg border border-zinc-700 
+            focus:border-indigo-500 outline-none text-app-text transition-all placeholder-transparent
+            ${isUrdu ? "pl-11 pr-4" : "pr-11 pl-4"}`}
         />
 
         {isSpeak && (
           <button
             type="button"
             onClick={handleSpeak}
-            className={`absolute p-1.5 rounded-md text-zinc-500 hover:text-indigo-500 transition-colors ${
-              isUrdu ? "left-3 rotate-180" : "right-3"
+            aria-label="Speak text"
+            className={`absolute p-2 rounded-md text-zinc-500 hover:text-indigo-500 active:scale-95 transition-all ${
+              isUrdu ? "left-2 rotate-180" : "right-2"
             }`}
           >
-            <Volume2 size={18} />
+            <Volume2 size={20} className="md:w-[22px] md:h-[22px]" />
           </button>
         )}
       </div>

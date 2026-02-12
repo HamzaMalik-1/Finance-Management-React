@@ -9,10 +9,10 @@ const AnimatedSpeechInput = ({
   placeholder, 
   speakString = null, 
   isSpeak = true,
+  value, // ✅ Now properly receiving value from parent props
   ...props 
 }) => {
   const [isFocused, setIsFocused] = useState(false);
-  const [value, setValue] = useState("");
   const { t } = useTranslation();
 
   const textToSpeak = speakString || t(placeholder);
@@ -24,8 +24,7 @@ const AnimatedSpeechInput = ({
 
   const isUrdu = i18n.language === "ur";
 
-  // Responsive logic: Small x-offset for LTR to align better with border
-  // On mobile, the scale 0.85 ensures the label stays within the container width
+  // Label animation offsets
   const labelX = isUrdu ? 13 : -17; 
 
   return (
@@ -34,6 +33,7 @@ const AnimatedSpeechInput = ({
       <motion.label
         initial={false}
         animate={{
+          // ✅ Label stays up if focused OR if there is a value in the parent state
           x: isFocused || value ? labelX : 0,
           y: isFocused || value ? -34 : 0, 
           scale: isFocused || value ? 0.85 : 1,
@@ -45,7 +45,6 @@ const AnimatedSpeechInput = ({
           right: isUrdu ? "1rem" : "auto",
           left: isUrdu ? "auto" : "1rem",
         }}
-        // Using sm:text-sm for better mobile readability
         className="absolute top-3 pointer-events-none px-1.5 bg-card-bg z-20 text-sm md:text-base whitespace-nowrap transition-colors"
       >
         {t(placeholder)}
@@ -55,15 +54,14 @@ const AnimatedSpeechInput = ({
       <div className="relative flex items-center w-full">
         <input
           {...props}
-          value={value}
+          value={value} // ✅ Controlled by the parent's formData
           onFocus={() => setIsFocused(true)}
           onBlur={() => setIsFocused(false)}
           onChange={(e) => {
-            setValue(e.target.value);
+            // ✅ Directly trigger parent's handleInputChange
             if (props.onChange) props.onChange(e); 
           }}
           dir={isUrdu ? "rtl" : "ltr"}
-          // Added responsive padding and font-size
           className={`w-full p-3 text-sm md:text-base bg-transparent rounded-lg border border-zinc-700 
             focus:border-indigo-500 outline-none text-app-text transition-all placeholder-transparent
             ${isUrdu ? "pl-11 pr-4" : "pr-11 pl-4"}`}

@@ -1,0 +1,23 @@
+@theme {
+  --color-app-bg: var(--bg-primary);
+  --color-card-bg: var(--bg-secondary);
+  --color-app-text: var(--text-primary);
+}
+
+:root {
+  --bg-primary: #ffffff;
+  --bg-secondary: #f4f4f5; /* zinc-100 */
+  --text-primary: #09090b; /* zinc-950 */
+}
+
+.dark {
+  --bg-primary: #09090b;   /* zinc-950 */
+  --bg-secondary: #18181b; /* zinc-900 */
+  --text-primary: #fafafa; /* zinc-50 */
+}
+
+body {
+  background-color: var(--bg-primary);
+  color: var(--text-primary);
+  transition: background-color 0.3s ease, color 0.3s ease;
+}

@@ -1,0 +1,25 @@
+{
+  "common": {
+    "change_lang": "Change Language",
+    "theme_toggle": "Toggle Theme"
+  },
+  "auth": {
+    "welcome_back": "Welcome Back!",
+    "join_us": "Join Us Today!",
+    "login_subtitle": "Keep your finances in check and reach your goals faster.",
+    "signup_subtitle": "The best way to manage your money starts here.",
+    "no_account": "Create Account",
+    "have_account": "Login Now",
+    "sign_in": "Sign In",
+    "sign_up": "Sign Up",
+    "welcome_msg": "Welcome back to your wallet.",
+    "signup_msg": "Take the first step to financial freedom.",
+    "email": "Email Address",
+    "password": "Password",
+    "first_name": "First Name",
+    "last_name": "Last Name",
+    "username": "Username",
+    "login_btn": "Login",
+    "create_account_btn": "Create Account"
+  }
+}

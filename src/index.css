@@ -1,0 +1,13 @@
+@import "tailwindcss";
+
+html, body {
+  height: 100%;
+  margin: 0;
+  padding: 0;
+  /* This prevents the "bounce" scroll on mobile and desktop */
+  overflow: hidden; 
+}
+
+#root {
+  height: 100%;
+}

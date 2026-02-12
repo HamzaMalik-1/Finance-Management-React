@@ -1,0 +1,18 @@
+/* 1. Define the Urdu Font */
+@font-face {
+  font-family: 'UrduFont';
+  src: url('/fonts/JameelNooriNastaliq.woff2') format('woff2');
+  font-display: swap;
+}
+
+/* 2. Target the root div (or html) when dir is rtl */
+[dir="rtl"] {
+  font-family: 'UrduFont', 'Noto Sans Arabic', sans-serif;
+  line-height: 1.8; /* Urdu script usually needs more vertical space */
+}
+
+/* Optionally target specific elements for better readability */
+[dir="rtl"] h2, [dir="rtl"] h3 {
+  font-weight: 500;
+  letter-spacing: 0;
+}

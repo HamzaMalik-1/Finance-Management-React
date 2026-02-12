@@ -1,0 +1,6 @@
+{
+  "common": {
+    "welcome": "Welcome, {{name}}!",
+    "change_lang": "تغيير اللغة"
+  }
+}

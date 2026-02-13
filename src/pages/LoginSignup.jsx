@@ -62,7 +62,7 @@ const LoginSignup = () => {
           password: data.password 
         }).unwrap();
         dispatch(setCredentials(response.data)); 
-        navigate("/dashboard");
+        navigate("/onboarding/");
       } else {
         await signup(data).unwrap();
         setIsLogin(true);

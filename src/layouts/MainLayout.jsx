@@ -21,7 +21,7 @@ const MainLayout = ({ children }) => {
 
 
       {/* 2. PAGE CONTENT */}
-      <main className="relative  px-4 md:px-8 max-w-7xl mx-auto">
+      <main className="relative   max-w-7xl mx-auto">
         {/* Added a container with max-width for better desktop viewing */}
         <div className="w-full">
           {children}

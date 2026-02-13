@@ -74,7 +74,7 @@ const AnimatedSpeechInput = React.forwardRef(({
             }}
             dir={inputDir}
             style={{ unicodeBidi: "plaintext" }}
-            className={`w-full p-3 text-sm md:text-base bg-transparent rounded-lg border transition-all placeholder-transparent
+            className={`w-full p-3 text-sm md:text-base text-zinc-900 dark:text-white  bg-transparent rounded-lg border transition-all placeholder-transparent
               focus:border-indigo-500 outline-none text-app-text
               ${error ? "border-red-500" : "border-zinc-700"}
               ${isCurrentlyRtl ? "pl-11 pr-4 text-right" : "pr-11 pl-4 text-left"}`}

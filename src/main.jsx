@@ -13,8 +13,8 @@ import { Toaster } from 'react-hot-toast'
 import GlobalLoader from './components/GlobalLoader.jsx'
 createRoot(document.getElementById('root')).render(
   <StrictMode>
-    <Toaster position="top-right" reverseOrder={false} />
     <ThemeProvider>
+    <Toaster position="top-right" reverseOrder={false} />
       <Provider store={store}>  
 <BrowserRouter> 
     <GlobalLoader />

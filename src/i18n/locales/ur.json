@@ -21,5 +21,16 @@
     "username": "صارف نام",
     "login_btn": "لاگ ان",
     "create_account_btn": "اکاؤنٹ بنائیں"
+  },
+  "onboarding": {
+    "profile": "پروفائل",
+    "contact": "رابطہ",
+    "address": "پتہ",
+    "settings": "ترتیبات",
+    "phone_title": "اپنا فون نمبر درج کریں"
+  },
+  "val": {
+    "username_short": "صارف کا نام کم از کم 3 حروف کا ہونا چاہیے",
+    "invalid_email": "درست ای میل درج کریں"
   }
 }

@@ -33,7 +33,7 @@ const LanguageSwitcher = () => {
       >
         <div
           className={`flex items-center gap-3 ${isRTL ? "flex-row" : "flex-row-reverse"}`}
-        >
+        >   
           <Languages size={18} className="text-indigo-500" />
           <span className="text-sm font-medium">{currentLanguage.name}</span>
         </div>

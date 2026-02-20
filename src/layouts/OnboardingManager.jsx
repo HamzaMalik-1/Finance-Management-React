@@ -27,7 +27,7 @@ const OnboardingManager = ({ children }) => {
     } else if (isUser && isContact && isAddress && !isSettings && location.pathname !== '/onboarding/settings') {
       navigate('/onboarding/settings');
     } else if (isSettings && location.pathname.includes('/onboarding')) {
-      navigate('/dashboard'); // All done!
+      navigate('/main/dashboard'); // All done!
     }
     // // Navigation Logic based on missing data
     // if (!isUser && location.pathname !== '/onboarding/profile') {

@@ -26,11 +26,16 @@ export const constantApi = createApi({
       query: () => '/currencies',
       keepUnusedDataFor: 3600, 
     }),
+    getAccountType: builder.query({
+        query:()=>"/account-type",
+      keepUnusedDataFor: 3600, 
+    })
   }),
 });
 
 export const {
   useGetCountriesQuery,
   useGetCitiesQuery,
-  useGetCurrenciesQuery
+  useGetCurrenciesQuery,
+  useGetAccountTypeQuery
 } = constantApi;

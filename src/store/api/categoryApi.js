@@ -1,9 +1,10 @@
 import { createApi, fetchBaseQuery } from "@reduxjs/toolkit/query/react";
+import appConfig from "../../config/appConfig";
 
 export const categoryApi = createApi({
   reducerPath: "categoryApi",
   baseQuery: fetchBaseQuery({
-    baseUrl: "http://localhost:3000/api/v1", // Update with your actual API URL
+    baseUrl: `${appConfig.apiUrl}v1`, // Update with your actual API URL
     prepareHeaders: (headers, { getState }) => {
       const token = getState().auth.token;
       if (token) headers.set("authorization", `Bearer ${token}`);

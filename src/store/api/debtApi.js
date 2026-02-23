@@ -1,9 +1,10 @@
 import { createApi, fetchBaseQuery } from '@reduxjs/toolkit/query/react';
+import appConfig from '../../config/appConfig';
 
 export const debtApi = createApi({
   reducerPath: 'debtApi',
   baseQuery: fetchBaseQuery({ 
-    baseUrl: 'http://localhost:3000/api/v1/dept', // Your provided route
+    baseUrl: `${appConfig.apiUrl}v1/debt`, // Your provided route
     prepareHeaders: (headers, { getState }) => {
       const token = getState().auth.token;
       if (token) headers.set('authorization', `Bearer ${token}`);
@@ -29,22 +30,17 @@ export const debtApi = createApi({
       invalidatesTags: ['Debt', 'DebtSummary'],
     }),
 
-    // Add to your existing debtApi.js
-getDebtDetails: builder.query({
-  query: (debtId) => `/${debtId}/details`, // Assuming this backend route exists
-  providesTags: (result, error, id) => [{ type: 'Debt', id }],
+ getDebtDetails: builder.query({
+  query: (id) => `/details/${id}`, // Matches /api/v1/dept/details/UUID
+  providesTags: ['Debts'],
 }),
-// Mutation to add a repayment
 addRepayment: builder.mutation({
-  query: ({ debtId, ...body }) => ({
-    url: `/${debtId}/repayment`, 
+  query: ({ id, ...body }) => ({
+    url: `/repayment/${id}`, // Matches /api/v1/dept/repayment/UUID
     method: 'POST',
     body,
   }),
-  invalidatesTags: (result, error, { debtId }) => [
-    { type: 'Debt', id: debtId }, 
-    'DebtSummary'
-  ],
+  invalidatesTags: ['Debts'],
 }),
   }),
 });

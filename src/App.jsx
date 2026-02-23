@@ -15,6 +15,8 @@ import DashboardLayout from "./layouts/DashboardLayout";
 import AccountsMain from "./pages/accounts/AccountsMain";
 import AccountDetails from "./pages/accounts/AccountDetails";
 import CategoryPage from "./pages/category/CategoryPage";
+import DebtPage from "./pages/debt/DebtPage";
+import DebtDetailsPage from "./pages/debt/DebtDetailsPage";
 
 // 🔒 Simple Protected Route Wrapper
 const ProtectedRoute = ({ children }) => {
@@ -61,6 +63,10 @@ function App() {
           <Route path="account-detail/:id" element={<AccountDetails />} />
           <Route path="categories" element={<CategoryPage />} />
           
+
+          {/* Dept Page */}
+          <Route path="debts" element={<DebtPage/>}/>
+          <Route path="debts/:id" element={<DebtDetailsPage />} />
           {/* ✅ Redirect root /main to dashboard */}
           <Route path="" element={<Navigate to="dashboard" replace />} />
           

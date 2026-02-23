@@ -8,6 +8,8 @@ import accountReducer from './slices/accountSlice';
 import constantReducer from './slices/constantSlice';
 import { accountApi } from './api/accountApi';
 import { categoryApi } from './api/categoryApi';
+import { debtApi } from './api/debtApi';
+import { contactApi } from './api/contactApi';
 export const store = configureStore({
   reducer: {
     [authApi.reducerPath]: authApi.reducer,
@@ -15,6 +17,8 @@ export const store = configureStore({
     [constantApi.reducerPath]: constantApi.reducer, // ✅ Correct
     [accountApi.reducerPath]: accountApi.reducer, 
     [categoryApi.reducerPath]: categoryApi.reducer,
+    [debtApi.reducerPath]: debtApi.reducer, // ✅ Add Debt Reducer
+    [contactApi.reducerPath]: contactApi.reducer, // ✅ Add Contact Reducer
     auth: authReducer,
     constant: constantReducer,
     account:accountReducer,
@@ -22,10 +26,12 @@ export const store = configureStore({
   middleware: (getDefaultMiddleware) =>
     getDefaultMiddleware().concat([
       authApi.middleware, 
-      userApi.middleware, // ✅ CRITICAL: Fixes the white page error
+      userApi.middleware, 
       constantApi.middleware,
       accountApi.middleware,
       categoryApi.middleware,
+      debtApi.middleware,
+      contactApi.middleware,
       rtkQueryCustomLogger
     ]),
 }); 

@@ -10,6 +10,10 @@ import { accountApi } from './api/accountApi';
 import { categoryApi } from './api/categoryApi';
 import { debtApi } from './api/debtApi';
 import { contactApi } from './api/contactApi';
+import { budgetApi } from './api/budgetApi';
+import { transactionApi } from './api/transactionApi';
+import { notificationApi } from './api/notificationApi';
+import { dashboardApi } from './api/dashboardApi';
 export const store = configureStore({
   reducer: {
     [authApi.reducerPath]: authApi.reducer,
@@ -19,6 +23,10 @@ export const store = configureStore({
     [categoryApi.reducerPath]: categoryApi.reducer,
     [debtApi.reducerPath]: debtApi.reducer, // ✅ Add Debt Reducer
     [contactApi.reducerPath]: contactApi.reducer, // ✅ Add Contact Reducer
+    [budgetApi.reducerPath]: budgetApi.reducer,
+    [transactionApi.reducerPath]: transactionApi.reducer,
+    [notificationApi.reducerPath]: notificationApi.reducer,
+    [dashboardApi.reducerPath]: dashboardApi.reducer,
     auth: authReducer,
     constant: constantReducer,
     account:accountReducer,
@@ -32,6 +40,10 @@ export const store = configureStore({
       categoryApi.middleware,
       debtApi.middleware,
       contactApi.middleware,
+      budgetApi.middleware,
+      transactionApi.middleware,
+      notificationApi.middleware,
+      dashboardApi.middleware,
       rtkQueryCustomLogger
     ]),
 }); 

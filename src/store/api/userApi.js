@@ -1,18 +1,20 @@
 import { createApi, fetchBaseQuery } from "@reduxjs/toolkit/query/react";
-// import appConfig from '../config/appConfig';
 import appConfig from '../../config/appConfig';
+
 export const userApi = createApi({
   reducerPath: "userApi",
   baseQuery: fetchBaseQuery({
     baseUrl: `${appConfig.apiUrl}v1/user`,
     prepareHeaders: (headers, { getState }) => {
-      const token = getState().auth.token; // cite: [9]
+      const token = getState().auth.token;
       if (token) headers.set("authorization", `Bearer ${token}`);
       return headers;
     },
   }),
-  tagTypes: ["UserStatus"],
+  // ✅ Single consolidated array for all tags used in this slice
+  tagTypes: ["UserStatus", "UserSettings", "UserProfile"], 
   endpoints: (builder) => ({
+    // Registration & Onboarding
     getRegistrationStatus: builder.query({
       query: (userId) => `/status/${userId}`,
       providesTags: ["UserStatus"],
@@ -21,6 +23,8 @@ export const userApi = createApi({
       query: (data) => ({ url: "/users", method: "POST", body: data }),
       invalidatesTags: ["UserStatus"],
     }),
+
+    // Contact & Address
     addContact: builder.mutation({
       query: (data) => ({ url: "/contact", method: "POST", body: data }),
       invalidatesTags: ["UserStatus"],
@@ -29,22 +33,38 @@ export const userApi = createApi({
       query: (data) => ({ url: "/address", method: "POST", body: data }),
       invalidatesTags: ["UserStatus"],
     }),
+
+    // Settings
     addSettings: builder.mutation({
-      query: (data) => ({ url: "/settings", method: "POST", body: data }), // Note: Ensure route matches your express router
-      invalidatesTags: ["UserStatus"],
+      query: (data) => ({ url: "/settings", method: "POST", body: data }),
+      invalidatesTags: ["UserStatus", "UserSettings"],
     }),
-    // Add to your userApi or a new locationApi
-    // getCountries: builder.query({
-    //   query: () => "/countries", // Returns [{ id, name, emoji }]
-    // }),
-    // getCitiesByCountry: builder.query({
-    //   query: (countryId) => `/cities/${countryId}`, // Returns [{ id, name }]
-    // }),
-    // getCurrencies: builder.query({
-    //   query: () => '/currencies',
-    //   // Since currency data is static, we can cache it for a long time
-    //   keepUnusedDataFor: 3600, 
-    // }),
+    getSettings: builder.query({
+      query: (userId) => `/settings/${userId}`,
+      providesTags: ["UserSettings"],
+    }),
+    updateSettings: builder.mutation({
+      query: ({ userId, ...body }) => ({
+        url: `/settings/${userId}`,
+        method: "PUT",
+        body,
+      }),
+      invalidatesTags: ["UserSettings"],
+    }),
+
+    // ✅ Profile (Unified with your backend router.get('/profile/:userId'))
+    getProfile: builder.query({
+      query: (userId) => `/profile/${userId}`,
+      providesTags: ["UserProfile"],
+    }),
+    updateProfile: builder.mutation({
+      query: ({ userId, ...body }) => ({
+        url: `/profile/${userId}`,
+        method: 'PUT',
+        body,
+      }),
+      invalidatesTags: ['UserProfile'], 
+    }),
   }),
 });
 
@@ -54,7 +74,8 @@ export const {
   useAddContactMutation,
   useAddAddressMutation,
   useAddSettingsMutation,
-//   useGetCitiesByCountryQuery,
-//   useGetCountriesQuery,
-//   useGetCurrenciesQuery
+  useGetSettingsQuery, 
+  useUpdateSettingsMutation,
+  useGetProfileQuery,    // ✅ Exported for ProfileTab
+  useUpdateProfileMutation,
 } = userApi;

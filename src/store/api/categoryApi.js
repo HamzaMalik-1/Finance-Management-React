@@ -46,10 +46,16 @@ export const categoryApi = createApi({
       }),
       invalidatesTags: ["Category"],
     }),
+
+    getCategories: builder.query({
+      query: (userId) => `/category/all/${userId}`,
+      providesTags: ["Category"],
+    })
   }),
 });
 
 export const {
+  useGetCategoriesQuery,
   useGetCategoryTreeQuery,
   useCreateCategoryMutation,
   useDeleteCategoryMutation,

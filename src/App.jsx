@@ -3,7 +3,7 @@ import { Routes, Route, Navigate } from "react-router-dom";
 import { useSelector } from "react-redux";
 import MainLayout from "./layouts/MainLayout";
 import LoginSignup from "./pages/LoginSignup";
-import Dashboard from "./pages/Dashboard";
+import Dashboard from "./pages/dashboard/Dashboard";
 
 // Onboarding Components
 import OnboardingManager from "./layouts/OnboardingManager";
@@ -17,6 +17,10 @@ import AccountDetails from "./pages/accounts/AccountDetails";
 import CategoryPage from "./pages/category/CategoryPage";
 import DebtPage from "./pages/debt/DebtPage";
 import DebtDetailsPage from "./pages/debt/DebtDetailsPage";
+import BudgetPage from "./pages/budget/BudgetPage";
+import TransactionsPage from "./pages/transactions/TransactionsPage";
+import SettingsPage from "./pages/settings/SettingsPage";
+import NotificationPage from "./pages/notifications/NotificationPage";
 
 // 🔒 Simple Protected Route Wrapper
 const ProtectedRoute = ({ children }) => {
@@ -62,6 +66,10 @@ function App() {
           <Route path="account" element={<AccountsMain />} />
           <Route path="account-detail/:id" element={<AccountDetails />} />
           <Route path="categories" element={<CategoryPage />} />
+          <Route path="budgets" element={<BudgetPage />} />
+          <Route path="transactions" element={<TransactionsPage />} />
+          <Route path="settings" element={<SettingsPage />} />
+          <Route path="notifications" element={<NotificationPage />} />
           
 
           {/* Dept Page */}

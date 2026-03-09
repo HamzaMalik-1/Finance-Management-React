@@ -13,6 +13,7 @@
     "@hookform/resolvers": "^5.2.2",
     "@reduxjs/toolkit": "^2.11.2",
     "@tailwindcss/vite": "^4.1.18",
+    "date-fns": "^4.1.0",
     "i18next": "^25.8.4",
     "lucide-react": "^0.563.0",
     "moment": "^2.30.1",

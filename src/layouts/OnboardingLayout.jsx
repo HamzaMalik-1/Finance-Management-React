@@ -11,12 +11,19 @@ const OnboardingLayout = ({ children, status }) => {
   const isRTL = i18n.language === "ur"; // cite: Dated Events, Projects & Plans
   const { theme } = useTheme();
 
-  // ✅ Synchronize document direction and lang for SEO/Accessibility
-  useEffect(() => {
-    document.documentElement.dir = isRTL ? "rtl" : "ltr";
-    document.documentElement.lang = i18n.language;
-  }, [isRTL, i18n.language]);
+useEffect(() => {
+  // 1. Calculate direction based on current language
+  const currentDir = i18n.language === "ur" || i18n.language === "ar" ? "rtl" : "ltr";
+  
+  // 2. Apply to the root HTML element
+  document.documentElement.dir = currentDir;
+  document.documentElement.lang = i18n.language;
 
+  // 3. Optional: Force a body class for specific CSS overrides
+  document.body.className = currentDir; 
+  
+  console.log("Direction updated to:", currentDir); // Debug check
+}, [i18n.language]); // Trigger this whenever language changes
   const steps = [
     { id: "isUser", label: t("onboarding.profile"), icon: "👤" },
     { id: "isAddress", label: t("onboarding.address"), icon: "🏠" },
@@ -26,10 +33,11 @@ const OnboardingLayout = ({ children, status }) => {
 
   return (
     /* ✅ FIXED: Use 'bg-app-bg' and 'text-app-text' from your theme.css variables */
-    <div className={`${theme} min-h-screen bg-app-bg text-app-text p-4 md:p-8 transition-colors duration-300 relative`}>
-      
+    <div
+      className={`${theme} min-h-screen bg-app-bg text-app-text p-4 md:p-8 transition-colors duration-300 relative`}
+    >
       {/* CORNER ALIGNMENT */}
-      <div className="fixed top-5 ltr:right-5 rtl:left-5 flex items-center gap-3 z-[100]">
+      <div className="fixed top-5 ltr:right-2 rtl:left-5 flex items-center gap-3 z-[100]">
         {isRTL ? (
           <>
             <ThemeToggle />
@@ -57,16 +65,21 @@ const OnboardingLayout = ({ children, status }) => {
               }`}
             >
               <div className="flex items-center justify-between mb-2">
-                <span className="text-xl">{step.icon}</span>
+                <div>
+                  <span className="text-xl">{step.icon}</span>
+                  {"  "}
+                  <span
+                    className={`text-sm font-bold ${status?.[step.id] ? "text-indigo-600" : "text-zinc-500"}`}
+                  >
+                    {step.label}
+                  </span>
+                </div>
                 {status?.[step.id] ? (
                   <CheckCircle2 className="text-indigo-500" size={20} />
                 ) : (
                   <Circle className="text-zinc-300" size={20} />
                 )}
               </div>
-              <p className={`text-sm font-bold ${status?.[step.id] ? "text-indigo-600" : "text-zinc-500"}`}>
-                {step.label}
-              </p>
             </div>
           ))}
         </div>

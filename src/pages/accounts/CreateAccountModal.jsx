@@ -1,5 +1,7 @@
 import React, { useRef, useEffect } from 'react';
 import { useForm, Controller } from 'react-hook-form';
+import { zodResolver } from '@hookform/resolvers/zod'; // ✅ Added
+import * as z from 'zod'; // ✅ Added
 import { useSelector } from 'react-redux';
 import { motion, AnimatePresence } from 'framer-motion';
 import { X } from 'lucide-react';
@@ -13,16 +15,27 @@ const CreateAccountModal = ({ isOpen, onClose, editData }) => {
   const { t } = useTranslation();
   const modalRef = useRef(null);
   const { user } = useSelector((state) => state.auth);
-  
-  // API Queries for master data
+
+  // ✅ 1. Define Zod Schema
+  const accountSchema = z.object({
+    name: z.string().min(1, t('val.required')),
+    openingBalance: z.union([
+      z.string().min(1, t('val.required')), 
+      z.number()
+    ]).transform((val) => val.toString()),
+    accountTypeId: z.union([z.string(), z.number()]).refine(val => val !== '', t('val.required')),
+    currencyId: z.union([z.string(), z.number()]).refine(val => val !== '', t('val.required')),
+  });
+
   const { data: accountTypesRes, isLoading: isTypesLoading } = useGetAccountTypeQuery();
   const { data: currenciesRes, isLoading: isCurrenciesLoading } = useGetCurrenciesQuery();
   
-  // Mutations
   const [addAccount, { isLoading: isCreating }] = useAddAccountMutation();
   const [updateAccount, { isLoading: isUpdating }] = useUpdateAccountMutation();
   
-  const { control, handleSubmit, watch, reset } = useForm({
+  // ✅ 2. Initialize Form with Resolver
+  const { control, handleSubmit, watch, reset, formState: { errors } } = useForm({
+    resolver: zodResolver(accountSchema),
     defaultValues: {
       name: '',
       openingBalance: '',
@@ -31,40 +44,27 @@ const CreateAccountModal = ({ isOpen, onClose, editData }) => {
     }
   });
 
-  // ✅ POPULATE FORM ON EDIT / CLEAR ON CREATE
   useEffect(() => {
     if (isOpen) {
       if (editData) {
-        // Map the existing account object to form fields
         reset({
           name: editData.name || '',
-          openingBalance: editData.openingBalance || '',
-          // Extract IDs from nested objects if necessary
+          openingBalance: editData.openingBalance?.toString() || '',
           accountTypeId: editData.accountTypeId || editData.accountType?.id || '',
           currencyId: editData.currencyId || editData.currency?.id || ''
         });
       } else {
-        // Reset to empty for new account
         reset({ name: '', openingBalance: '', accountTypeId: '', currencyId: '' });
       }
     }
   }, [editData, isOpen, reset]);
 
-  // Safe data extraction from API responses
-  const accountTypes = Array.isArray(accountTypesRes?.data) 
-    ? accountTypesRes.data 
-    : accountTypesRes?.data?.data || [];
+  const accountTypes = Array.isArray(accountTypesRes?.data) ? accountTypesRes.data : accountTypesRes?.data?.data || [];
+  const currencies = Array.isArray(currenciesRes?.data) ? currenciesRes.data : currenciesRes?.data?.data || [];
 
-  const currencies = Array.isArray(currenciesRes?.data) 
-    ? currenciesRes.data 
-    : currenciesRes?.data?.data || [];
-
-  // Click-outside logic
   useEffect(() => {
     const handleEvents = (event) => {
-      if (modalRef.current && !modalRef.current.contains(event.target)) {
-        onClose();
-      }
+      if (modalRef.current && !modalRef.current.contains(event.target)) onClose();
     };
     if (isOpen) {
       document.addEventListener('mousedown', handleEvents);
@@ -78,20 +78,15 @@ const CreateAccountModal = ({ isOpen, onClose, editData }) => {
 
   const onSubmit = async (data) => {
     try {
+      const payload = {
+        ...data,
+        openingBalance: parseFloat(data.openingBalance)
+      };
+
       if (editData) {
-        // ✅ UPDATE MODE
-        await updateAccount({ 
-          id: editData.id, 
-          ...data,
-          openingBalance: parseFloat(data.openingBalance)
-        }).unwrap();
+        await updateAccount({ id: editData.id, ...payload }).unwrap();
       } else {
-        // ✅ CREATE MODE
-        await addAccount({ 
-          ...data, 
-          userId: user.id,
-          openingBalance: parseFloat(data.openingBalance) 
-        }).unwrap();
+        await addAccount({ ...payload, userId: user.id }).unwrap();
       }
       onClose();
     } catch (err) {
@@ -99,15 +94,11 @@ const CreateAccountModal = ({ isOpen, onClose, editData }) => {
     }
   };
 
-  console.log("editData",editData)
-
   return (
     <AnimatePresence>
       {isOpen && (
         <motion.div 
-          initial={{ opacity: 0 }}
-          animate={{ opacity: 1 }}
-          exit={{ opacity: 0 }}
+          initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }}
           className="fixed inset-0 bg-zinc-950/40 backdrop-blur-sm z-[100] flex items-center justify-center p-4"
         >
           <motion.div 
@@ -134,9 +125,13 @@ const CreateAccountModal = ({ isOpen, onClose, editData }) => {
               <Controller 
                 name="name" 
                 control={control} 
-                rules={{ required: true }}
                 render={({ field }) => (
-                  <AnimatedSpeechInput label={t('accounts.label_name')} placeholder="e.g. HBL Savings" {...field} value={watch('name')} />
+                  <AnimatedSpeechInput 
+                    label={t('accounts.label_name')} 
+                    placeholder={t('accounts.placeholder_name')} 
+                    {...field} 
+                    error={errors.name?.message} // ✅ Pass error to avoid collision
+                  />
                 )}
               />
 
@@ -150,6 +145,7 @@ const CreateAccountModal = ({ isOpen, onClose, editData }) => {
                     isLoading={isTypesLoading}
                     onSelect={(val) => field.onChange(val)}
                     value={field.value}
+                    error={errors.accountTypeId?.message} // ✅ Pass error
                   />
                 )}
               />
@@ -164,6 +160,7 @@ const CreateAccountModal = ({ isOpen, onClose, editData }) => {
                     isLoading={isCurrenciesLoading}
                     onSelect={(val) => field.onChange(val)}
                     value={field.value}
+                    error={errors.currencyId?.message} // ✅ Pass error
                   />
                 )}
               />
@@ -175,10 +172,10 @@ const CreateAccountModal = ({ isOpen, onClose, editData }) => {
                   <AnimatedSpeechInput 
                     label={t('accounts.label_opening_balance')} 
                     type="number" 
-                    placeholder="0.00" 
+                    placeholder={t('accounts.placeholder_amount')} 
                     {...field} 
-                    value={watch('openingBalance')} 
-                    disabled={!!editData} // Often opening balance is locked during edit
+                    disabled={!!editData}
+                    error={errors.openingBalance?.message} // ✅ Pass error
                   />
                 )}
               />
@@ -189,10 +186,7 @@ const CreateAccountModal = ({ isOpen, onClose, editData }) => {
                 disabled={isCreating || isUpdating}
                 className="w-full py-4 bg-indigo-600 text-white rounded-2xl font-bold shadow-lg shadow-indigo-500/30 hover:bg-indigo-700 transition-all disabled:opacity-50 mt-4"
               >
-                {isCreating || isUpdating 
-                  ? t('common.saving') 
-                  : (editData ? t('common.update') : t('accounts.btn_create'))
-                }
+                {isCreating || isUpdating ? t('common.saving') : (editData ? t('common.update') : t('accounts.btn_create'))}
               </motion.button>
             </form>
           </motion.div>

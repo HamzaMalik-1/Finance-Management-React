@@ -39,7 +39,7 @@ const AnimatedSpeechInput = React.forwardRef(({
   const labelX = isCurrentlyRtl ? 13 : -17; 
 
   return (
-    <div className="relative w-full mb-7 group">
+    <div className="relative w-full mb-8 group">
       {/* 1. THE FLOATING LABEL */}
       <motion.label
         initial={false}
@@ -47,7 +47,7 @@ const AnimatedSpeechInput = React.forwardRef(({
           x: isFocused || value ? labelX : 0,
           y: isFocused || value ? -34 : 0, 
           scale: isFocused || value ? 0.85 : 1,
-          color: error ? "#ef4444" : (isFocused ? "#6366f1" : "#71717a"),
+          color:   "#71717a",
         }}
         transition={{ type: "spring", stiffness: 300, damping: 25 }}
         style={{
@@ -55,7 +55,7 @@ const AnimatedSpeechInput = React.forwardRef(({
           right: isCurrentlyRtl ? "1rem" : "auto",
           left: isCurrentlyRtl ? "auto" : "1rem",
         }}
-        className="absolute top-3 pointer-events-none px-1.5 bg-card-bg z-20 text-sm md:text-base whitespace-nowrap transition-colors"
+        className="absolute font-bold top-3 pointer-events-none px-1.5 bg-card-bg z-20 text-base md:text-lg whitespace-nowrap transition-colors"
       >
         {t(placeholder)}
       </motion.label>
@@ -74,7 +74,7 @@ const AnimatedSpeechInput = React.forwardRef(({
             }}
             dir={inputDir}
             style={{ unicodeBidi: "plaintext" }}
-            className={`w-full p-3 text-sm md:text-base   bg-transparent rounded-lg border transition-all placeholder-transparent
+            className={`w-full p-3 text-sm md:text-base  text-light  bg-transparent rounded-lg border transition-all placeholder-transparent
               focus:border-indigo-500 outline-none text-app-text
               ${error ? "border-red-500" : "border-zinc-700"}
               ${isCurrentlyRtl ? "pl-11 pr-4 text-right" : "pr-11 pl-4 text-left"}`}

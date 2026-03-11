@@ -6,6 +6,7 @@ import { useGetCountriesQuery, useGetCitiesQuery } from '../../store/api/constan
 import { useAddAddressMutation } from '../../store/api/userApi';
 import AnimatedSearchSelect from '../../components/AnimatedSearchSelect';
 import AnimatedSpeechInput from '../../components/AnimatedSpeechInput';
+import { useRtl } from '../../hooks/useRtl';
 
 const AddressStep = () => {
   const { t } = useTranslation();
@@ -19,7 +20,7 @@ const AddressStep = () => {
   
   const [addAddress, { isLoading: isSubmitting }] = useAddAddressMutation();
   const { control, handleSubmit, watch, setValue, formState: { errors } } = useForm();
-
+const { isRTL } = useRtl();
   const onSubmit = async (data) => {
     try {
       await addAddress({ 
@@ -32,11 +33,13 @@ const AddressStep = () => {
       console.error("Failed to add address:", err);
     }
   };
+  console.log(isRTL)
 
   return (
     <form onSubmit={handleSubmit(onSubmit)} className="space-y-4">
-      <h2 className="text-2xl font-bold mb-6">{t('onboarding.address_title')}</h2>
-
+<h2 className={`text-2xl font-bold mb-6 w-full ${isRTL ? 'text-end' : 'text-start'}`}>
+        {t('onboarding.address_title')}
+      </h2>
       {/* COUNTRY SELECT */}
       <Controller
         name="countryId"

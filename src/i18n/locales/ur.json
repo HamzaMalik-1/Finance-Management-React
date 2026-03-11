@@ -1,7 +1,19 @@
 {
   "common": {
     "change_lang": "زبان تبدیل کریں",
-    "theme_toggle": "تھیم تبدیل کریں"
+    "theme_toggle": "تھیم تبدیل کریں",
+    "saving": "محفوظ ہو رہا ہے...",
+    "continue": "جاری رکھیں",
+    "next": "اگلا قدم",
+    "select_option": "ایک آپشن منتخب کریں",
+    "no_results": "کوئی نتیجہ نہیں ملا",
+    "search": "تلاش کریں",
+    "welcome_back": "خوش آمدید",
+    "user_fallback": "صارف",
+    "notifications": "اطلاعات",
+    "edit": "ترمیم کریں",
+    "delete": "ختم کریں",
+    "update": "اپ ڈیٹ کریں"
   },
   "auth": {
     "welcome_back": "خوش آمدید!",
@@ -27,10 +39,78 @@
     "contact": "رابطہ",
     "address": "پتہ",
     "settings": "ترتیبات",
-    "phone_title": "اپنا فون نمبر درج کریں"
+    "phone_title": "اپنا فون نمبر درج کریں",
+    "setup_identity": "شناخت ترتیب دیں",
+    "identity_desc": "اپنے تجربے کو بہتر بنانے کے لیے ہمیں اپنے بارے میں کچھ بتائیں۔",
+    "first_name": "پہلا نام",
+    "last_name": "آخری نام",
+    "display_name": "ظاہری نام",
+    "recovery_email": "رابطہ ای میل",
+    "address_title": "آپ کہاں مقیم ہیں؟",
+    "country": "ملک منتخب کریں",
+    "city": "شہر منتخب کریں",
+    "detected_country": "منتخب کردہ ملک",
+    "enter_phone": "براہ کرم اپنا موبائل نمبر درج کریں",
+    "phone_placeholder": "فون نمبر (مثلاً +92 300 1234567)",
+    "settings_title": "اپنے تجربے کو بہتر بنائیں",
+    "settings_subtitle": "اپنی بنیادی کرنسی اور ایپ کی ظاہری شکل منتخب کریں۔",
+    "complete_setup": "سیٹ اپ مکمل کریں"
   },
   "val": {
-    "username_short": "صارف کا نام کم از کم 3 حروف کا ہونا چاہیے",
-    "invalid_email": "درست ای میل درج کریں"
-  }
+    "username_short": "صارف نام کم از کم 3 حروف کا ہونا چاہیے",
+    "name_short": "نام کم از کم 2 حروف کا ہونا چاہیے",
+    "invalid_email": "درست ای میل درج کریں",
+    "required": "یہ خانہ پُر کرنا لازمی ہے",
+    "min_address": "براہ کرم مکمل پتہ درج کریں",
+    "invalid_phone": "براہ کرم کنٹری کوڈ کے ساتھ درست فون نمبر درج کریں",
+  "required_ur": "یہ خانہ پُر کرنا لازمی ہے"
+
+  },
+  "settings": {
+    "primary_currency": "بنیادی کرنسی",
+    "select_currency": "اپنی بنیادی کرنسی منتخب کریں",
+    "appearance": "ظاہری شکل",
+    "light": "روشن",
+    "dark": "تاریک",
+    "system": "سسٹم"
+  },
+  "nav": {
+    "dashboard": "ڈیش بورڈ",
+    "accounts": "اکاؤنٹس",
+    "transactions": "لین دین",
+    "budgets": "بجٹ",
+    "debts": "قرضہ جات",
+    "categories": "اقسام",
+    "notifications": "اطلاعات",
+    "settings": "ترتیبات"
+  },
+  "user": {
+    "premium": "پریمیئم صارف",
+    "standard": "عام صارف"
+  },
+  "accounts": {
+    "title": "میرا خزانہ",
+    "add_btn": "نیا اکاؤنٹ",
+    "no_accounts": "کوئی اکاؤنٹ نہیں ملا۔ ٹریکنگ شروع کرنے کے لیے اپنا پہلا اکاؤنٹ بنائیں!",
+    "delete_title": "اکاؤنٹ ختم کریں",
+    "delete_warning": "کیا آپ کو یقین ہے؟ اس اکاؤنٹ کے تمام لین دین مستقل طور پر ختم کر دیے جائیں گے۔",
+    "no_accounts_title": "آپ کا خزانہ خالی ہے",
+    "edit_vault": "اکاؤنٹ میں ترمیم",
+    "initialize_new": "نیا اکاؤنٹ شروع کریں",
+    "edit_desc": "اپنے اکاؤنٹ کی تفصیلات اور بیلنس کی ترتیبات اپ ڈیٹ کریں۔",
+    "setup_vault_desc": "اپنے مالی معاملات کو ٹریک کرنے کے لیے نیا اکاؤنٹ ترتیب دیں۔",
+    "label_name": "اکاؤنٹ کا نام",
+    "label_type": "اکاؤنٹ کی قسم",
+    "label_currency": "کرنسی",
+    "label_opening_balance": "ابتدائی رقم",
+    "btn_create": "اکاؤنٹ بنائیں",
+    "placeholder_name": "اکاؤنٹ کا نام",
+    "placeholder_amount": "رقم"
+  },
+  "First Name": "پہلا نام",
+  "Last Name": "آخری نام",
+  "Display Name": "ظاہری نام",
+  "Recovery Email": "رابطہ ای میل",
+  "Address (Street, House No.)": "پتہ (گلی، مکان نمبر)",
+  "onboarding.phone_placeholder": "فون نمبر (مثلاً +92 300 1234567)"
 }

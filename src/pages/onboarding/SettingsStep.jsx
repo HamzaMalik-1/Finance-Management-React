@@ -3,25 +3,25 @@ import { useForm, Controller } from 'react-hook-form';
 import { useTranslation } from 'react-i18next';
 import { useSelector } from 'react-redux';
 import { motion } from 'framer-motion';
-import { Moon, Sun, Monitor, Globe, Landmark } from 'lucide-react';
-import {  useAddSettingsMutation } from '../../store/api/userApi';
-
+import { Moon, Sun, Monitor, Landmark } from 'lucide-react';
+import { useAddSettingsMutation } from '../../store/api/userApi';
 import AnimatedSearchSelect from '../../components/AnimatedSearchSelect';
 import { useGetCurrenciesQuery } from '../../store/api/constantApi';
+import { useRtl } from '../../hooks/useRtl'; // ✅ Import your RTL hook
 
 const SettingsStep = () => {
   const { t, i18n } = useTranslation();
+  const { isRTL } = useRtl(); // ✅ Use the hook to detect RTL
   const user = useSelector((state) => state.auth.user);
   
-  // 1. Fetch currencies from your local DB (e.g., PKR, USD, EUR)
   const { data: currencies, isLoading: loadingCurrencies } = useGetCurrenciesQuery();
   const [addSettings, { isLoading: isSubmitting }] = useAddSettingsMutation();
 
   const { control, handleSubmit, watch, setValue } = useForm({
     defaultValues: {
-      baseCurrencyId: 1, // Defaulting to PKR
+      baseCurrencyId: 1,
       themePreference: 'system',
-      languageId: i18n.language === 'ur' ? 2 : 1, // Sync with current i18n state
+      languageId: i18n.language === 'ur' ? 2 : 1,
     }
   });
 
@@ -30,7 +30,6 @@ const SettingsStep = () => {
   const onSubmit = async (data) => {
     try {
       await addSettings({ userId: user.id, ...data }).unwrap();
-      // On success, the OnboardingManager will navigate to /dashboard
     } catch (err) {
       console.error("Settings failed:", err);
     }
@@ -43,14 +42,16 @@ const SettingsStep = () => {
   ];
 
   return (
-    <form onSubmit={handleSubmit(onSubmit)} className="space-y-8">
+    <form onSubmit={handleSubmit(onSubmit)} className="space-y-8" dir={isRTL ? 'rtl' : 'ltr'}>
+      {/* 1. HEADER: text-start handles alignment automatically */}
       <div className="space-y-2 text-center md:text-start">
         <h2 className="text-3xl font-bold text-app-text">{t('onboarding.settings_title')}</h2>
         <p className="text-zinc-500">{t('onboarding.settings_subtitle')}</p>
       </div>
 
-      {/* 1. CURRENCY SELECT */}
+      {/* 2. CURRENCY SELECT */}
       <div className="space-y-3">
+        {/* flex-row follows 'dir', keeping icon before text automatically */}
         <div className="flex items-center gap-2 text-indigo-500 mb-2">
           <Landmark size={18} />
           <span className="font-semibold text-sm">{t('settings.primary_currency')}</span>
@@ -70,7 +71,7 @@ const SettingsStep = () => {
         />
       </div>
 
-      {/* 2. THEME SELECTION (Animated Cards) */}
+      {/* 3. THEME SELECTION */}
       <div className="space-y-4">
         <div className="flex items-center gap-2 text-indigo-500 mb-2">
           <Sun size={18} />
@@ -96,12 +97,12 @@ const SettingsStep = () => {
         </div>
       </div>
 
-      {/* 3. SUBMIT BUTTON */}
+      {/* 4. SUBMIT BUTTON */}
       <div className="pt-4">
         <button 
           type="submit" 
           disabled={isSubmitting}
-          className="w-full py-4 bg-indigo-600 text-white rounded-2xl font-bold shadow-xl shadow-indigo-500/20 hover:bg-indigo-700 hover:shadow-indigo-500/40 transition-all active:scale-[0.98] disabled:opacity-50"
+          className="w-full py-4 bg-indigo-600 text-white rounded-2xl font-bold shadow-xl shadow-indigo-500/20 transition-all active:scale-[0.98] disabled:opacity-50"
         >
           {isSubmitting ? "..." : t('onboarding.complete_setup')}
         </button>

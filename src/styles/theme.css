@@ -4,18 +4,28 @@
   --color-app-text: var(--text-primary);
 }
 
+/* DEFAULT (Light Mode) */
+/* DEFAULT (Light Mode) */
 :root {
-  --bg-primary: #ffffff;
-  --bg-secondary: #f4f4f5; /* zinc-100 */
-  --text-primary: #09090b; /* zinc-950 */
+  --bg-primary: #ffffff;      /* Page Background */
+  --bg-secondary: #f4f4f5;    /* zinc-100 */
+  --card-bg: #ffffff;         /* Cards stay white in light mode */
+  --text-primary: #09090b;    /* zinc-950 (Almost Black) */
+  --border-subtle: #e4e4e7;   /* zinc-200 */
+  
+  color-scheme: light;
 }
 
+/* DARK MODE OVERRIDES */
 .dark {
-  --bg-primary: #09090b;   /* zinc-950 */
-  --bg-secondary: #18181b; /* zinc-900 */
-  --text-primary: #fafafa; /* zinc-50 */
+  --bg-primary: #09090b;      /* zinc-950 */
+  --bg-secondary: #18181b;    /* zinc-900 */
+  --card-bg: #18181b; 
+  --text-primary: #fafafa;    /* zinc-50 (White) */
+  --border-subtle: #27272a;   /* zinc-800 */
+  
+  color-scheme: dark;
 }
-
 body {
   background-color: var(--bg-primary);
   color: var(--text-primary);

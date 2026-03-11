@@ -3,6 +3,7 @@ import { useSelector } from 'react-redux';
 import { useNavigate, useLocation } from 'react-router-dom';
 import { useGetRegistrationStatusQuery } from '../store/api/userApi';
 import OnboardingLayout from './OnboardingLayout';
+import GlobalLoader from '../components/GlobalLoader';
 
 const OnboardingManager = ({ children }) => {
   const user = useSelector((state) => state.auth.user);
@@ -43,7 +44,7 @@ const OnboardingManager = ({ children }) => {
     // }
   }, [data, isLoading, location.pathname]);
 
-  if (isLoading) return <div className="flex justify-center items-center h-screen">Loading...</div>;
+  if (isLoading) return <GlobalLoader/>;
 
   return <OnboardingLayout status={data?.data}>{children}</OnboardingLayout>;
 };

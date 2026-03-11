@@ -6,12 +6,13 @@ import { useAddContactMutation } from "../../store/api/userApi";
 import { useGetCountriesQuery } from "../../store/api/constantApi";
 import AnimatedSpeechInput from "../../components/AnimatedSpeechInput";
 import { motion } from "framer-motion";
+import { useRtl } from '../../hooks/useRtl';
 
 const ContactStep = () => {
   const { t } = useTranslation();
   const dispatch = useDispatch();
   const user = useSelector((state) => state.auth.user);
-  
+  const {isRTL} = useRtl()
   // ✅ Get the country selected by the user in the previous Address step
   const { selectedCountry } = useSelector((state) => state.constant);
   
@@ -43,14 +44,15 @@ const ContactStep = () => {
     }
   };
 
+
   return (
     <form onSubmit={handleSubmit(onSubmit)} className="space-y-6">
       <div className="flex flex-col gap-1">
-        <h2 className="text-2xl font-bold text-app-text">
+        <h2 className={`text-2xl font-bold ${isRTL ? 'text-end' : 'text-start'}`}>
           {t('onboarding.phone_title')}
         </h2>
         <p className="text-sm text-zinc-500">
-          {countryData ? `${t('onboarding.detected_country')}: ${countryData.name}` : t('onboarding.enter_phone')}
+          {countryData ? `${t('onboarding.detected_country')}: ${countryData.name}` : ''}
         </p>
       </div>
 

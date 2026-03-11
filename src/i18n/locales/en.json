@@ -1,7 +1,19 @@
 {
   "common": {
     "change_lang": "Change Language",
-    "theme_toggle": "Toggle Theme"
+    "theme_toggle": "Toggle Theme",
+    "saving": "Saving...",
+    "continue": "Continue",
+    "next": "Next Step",
+    "select_option": "Select an option",
+    "no_results": "No results found",
+    "search": "Search",
+    "welcome_back": "Welcome back",
+    "user_fallback": "User",
+    "notifications": "Notifications",
+    "edit": "Edit",
+    "delete": "Delete",
+    "update": "Update"
   },
   "auth": {
     "welcome_back": "Welcome Back!",
@@ -21,6 +33,86 @@
     "username": "Username",
     "login_btn": "Login",
     "create_account_btn": "Create Account"
-  }
-  
+  },
+  "onboarding": {
+    "profile": "Profile",
+    "contact": "Contact",
+    "address": "Address",
+    "settings": "Settings",
+    "phone_title": "Enter your phone number",
+    "setup_identity": "Set Up Identity",
+    "identity_desc": "Tell us a bit about yourself to personalize your experience.",
+    "first_name": "First Name",
+    "last_name": "Last Name",
+    "display_name": "Display Name",
+    "recovery_email": "Recovery Email",
+    "address_title": "Where are you located?",
+    "country": "Select Country",
+    "city": "Select City",
+
+    "detected_country": "Detected Country",
+    "enter_phone": "Please enter your mobile number",
+    "phone_placeholder": "Phone Number (e.g. +92 300 1234567)",
+    "settings_title": "Personalize Your Experience",
+    "settings_subtitle": "Choose your primary currency and app appearance.",
+    "complete_setup": "Complete Setup"
+  },
+  "val": {
+    "username_short": "Username must be at least 3 characters",
+    "invalid_email": "Please enter a valid email",
+    "name_short": "Name must be at least 2 characters",
+    "required": "This field is required",
+    "min_address": "Please provide a more detailed address",
+    "invalid_phone": "Please enter a valid phone number with country code"
+  },
+  "settings": {
+    "primary_currency": "Primary Currency",
+    "select_currency": "Select your base currency",
+    "appearance": "Appearance",
+    "light": "Light",
+    "dark": "Dark",
+    "system": "System"
+  },
+  "nav": {
+    "dashboard": "Dashboard",
+    "accounts": "Accounts",
+    "transactions": "Transactions",
+    "budgets": "Budgets",
+    "debts": "Borrow & Lend",
+    "categories": "Categories",
+    "notifications": "Notifications",
+    "settings": "Settings"
+  },
+  "user": {
+    "premium": "Premium User",
+    "standard": "Standard User"
+  },
+  "accounts": {
+    "title": "The Vault",
+    "add_btn": "Add Account",
+    "no_accounts": "No accounts found. Create your first account to start tracking!",
+    "delete_title": "Delete Account",
+    "delete_warning": "Are you sure? All transactions for this account will be permanently deleted.",
+    "no_accounts_title": "Your Vault is Empty",
+    "edit_vault": "Edit Vault",
+    "initialize_new": "Initialize New Account",
+    "edit_desc": "Update your account details and balance settings.",
+    "setup_vault_desc": "Set up a new account to start tracking your finances.",
+    "label_name": "Account Name",
+    "label_type": "Account Type",
+    "label_currency": "Currency",
+    "label_opening_balance": "Opening Balance",
+    "btn_create": "Create Account",
+
+    "placeholder_name": "Account Name",
+
+    "placeholder_amount": "Amount"
+  },
+
+  "First Name": "First Name",
+  "Last Name": "Last Name",
+  "Display Name": "Display Name",
+  "Recovery Email": "Recovery Email",
+  "Address (Street, House No.)": "Address (Street, House No.)",
+  "onboarding.phone_placeholder": "Phone Number (e.g. +92 300 1234567)"
 }

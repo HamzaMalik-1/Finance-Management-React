@@ -11,9 +11,19 @@
     "welcome_back": "Welcome back",
     "user_fallback": "User",
     "notifications": "Notifications",
+    "currency_symbol": "$",
+    "periods": {
+      "daily": "Daily",
+      "weekly": "Weekly",
+      "monthly": "Monthly",
+      "yearly": "Yearly",
+      "custom": "Custom Range"
+    },
     "edit": "Edit",
-    "delete": "Delete",
-    "update": "Update"
+  "delete": "Delete",
+  "cancel": "Cancel",
+  "confirm": "Confirm",
+  "save": "Save Changes"
   },
   "auth": {
     "welcome_back": "Welcome Back!",
@@ -47,9 +57,9 @@
     "display_name": "Display Name",
     "recovery_email": "Recovery Email",
     "address_title": "Where are you located?",
+    "address_label": "Address (Street, House No.)",
     "country": "Select Country",
     "city": "Select City",
-
     "detected_country": "Detected Country",
     "enter_phone": "Please enter your mobile number",
     "phone_placeholder": "Phone Number (e.g. +92 300 1234567)",
@@ -103,16 +113,51 @@
     "label_currency": "Currency",
     "label_opening_balance": "Opening Balance",
     "btn_create": "Create Account",
-
     "placeholder_name": "Account Name",
-
     "placeholder_amount": "Amount"
   },
-
-  "First Name": "First Name",
-  "Last Name": "Last Name",
-  "Display Name": "Display Name",
-  "Recovery Email": "Recovery Email",
-  "Address (Street, House No.)": "Address (Street, House No.)",
-  "onboarding.phone_placeholder": "Phone Number (e.g. +92 300 1234567)"
+  "budgets": {
+    "title": "Budget Guardrails",
+    "subtitle": "Set limits to stay within your means",
+    "add_btn": "Set New Budget",
+    "empty_title": "No Budget Guardrails",
+    "empty_desc": "You haven't set any spending limits yet. Start managing your wealth by setting your first category budget.",
+    "stats": {
+      "health": "Global Health",
+      "used": "capacity used",
+      "allocated": "Total Allocated",
+      "remaining": "Remaining Ceiling"
+    },
+    "modal": {
+      "title_add": "Set Budget Limit",
+      "title_edit": "Edit Budget",
+      "subtitle_add": "Establish spending boundaries",
+      "subtitle_edit": "Adjust your spending boundaries",
+      "label_category": "Category",
+      "label_currency": "Currency",
+      "label_limit": "Limit Amount",
+      "label_start": "Start Date",
+      "label_end": "End Date",
+      "label_threshold": "Alert Threshold",
+      "btn_submit_add": "Confirm Budget",
+      "btn_submit_edit": "Save Changes",
+      "btn_processing": "Processing...",
+      "success_add": "Budget guardrail established!",
+      "success_edit": "Budget updated successfully!",
+      "delete_title": "Delete Budget?",
+      "delete_warning": "Are you sure you want to delete this budget? This action cannot be undone and you will lose your tracking data for this period.",
+      "success_delete": "Budget deleted successfully",
+      "error_date_range": "End date must be after the start date"
+    },
+    "card": {
+      "remaining": "Remaining to spend",
+      "used": "Used",
+      "of": "of",
+      "health": "Budget health",
+      "good": "Excellent",
+      "warning": "Near Limit",
+      "exceeded_by": "Exceeded by",
+      "ends": "Ends"
+    }
+  }
 }

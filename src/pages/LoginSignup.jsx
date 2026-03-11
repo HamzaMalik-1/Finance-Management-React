@@ -177,25 +177,27 @@ const LoginForm = ({ t, register, handleSubmit, errors, isLoading, isLogin, valu
       <p className="text-zinc-500 text-sm">{t("auth.welcome_msg")}</p>
     </div>
 
-    <div className="space-y-2">
-      <AnimatedSpeechInput 
-        placeholder="auth.email" 
-        type="email" 
-        {...register("email")}
-        key={isLogin ? "login-email" : "signup-email"}
-        value={values.email}
-        error={errors.email?.message}
-        autoComplete={isLogin ? "off" : "new-password"}
-      />
-      <AnimatedSpeechInput 
-        placeholder="auth.password" 
-        type="password" 
-        {...register("password")}
-        value={values.password}
-        error={errors.password?.message}
-        autoComplete={isLogin ? "off" : "new-password"}
-      />
-    </div>
+  <div className="space-y-6">
+  <AnimatedSpeechInput 
+    placeholder="auth.email" 
+    type="email" 
+    {...register("email")}
+    // ✅ This forces the text color at the DOM level
+    style={{ color: "#000000" }} 
+    error={errors.email?.message}
+    autoComplete={isLogin ? "email" : "new-password"}
+  />
+  
+  <AnimatedSpeechInput 
+    placeholder="auth.password" 
+    type="password" 
+    {...register("password")}
+    // ✅ This forces the text color at the DOM level
+    style={{ color: "#000000" }}
+    error={errors.password?.message}
+    autoComplete={isLogin ? "current-password" : "new-password"}
+  />
+</div>
 
     <button type="submit" disabled={isLoading} className="w-full bg-indigo-600 text-white py-3.5 rounded-xl font-bold shadow-lg hover:bg-indigo-700 transition-all active:scale-[0.98] disabled:opacity-70">
       {isLoading ? "..." : t("auth.login_btn")}

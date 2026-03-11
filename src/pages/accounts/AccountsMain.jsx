@@ -20,8 +20,33 @@ import ConfirmDialog from "../../components/ConfirmDialog";
 import { useNavigate } from "react-router-dom";
 import { useRtl } from "../../hooks/useRtl";
 
-// ... SkeletonCard stays same ...
+const SkeletonCard = () => (
+  <div className="h-52 rounded-[2.5rem] bg-white dark:bg-zinc-900 border border-zinc-100 dark:border-zinc-800 p-7 flex flex-col justify-end gap-5 shadow-sm animate-pulse relative overflow-hidden">
+    {/* Top Section Skeleton */}
+    <div className="absolute top-7 left-7 right-7 flex justify-between items-start">
+      <div className="flex gap-3 items-center">
+        {/* Icon placeholder */}
+        <div className="w-12 h-12 rounded-2xl bg-zinc-100 dark:bg-zinc-800" />
+        {/* Badge placeholder */}
+        <div className="w-20 h-6 rounded-lg bg-zinc-100 dark:bg-zinc-800" />
+      </div>
+      {/* Menu dots placeholder */}
+      <div className="w-8 h-8 rounded-xl bg-zinc-100 dark:bg-zinc-800" />
+    </div>
 
+    {/* Bottom Section Skeleton */}
+    <div className="space-y-3">
+      {/* Account name placeholder */}
+      <div className="w-24 h-4 rounded bg-zinc-100 dark:bg-zinc-800" />
+      <div className="flex items-baseline gap-2">
+        {/* Currency placeholder */}
+        <div className="w-6 h-6 rounded bg-zinc-100 dark:bg-zinc-800" />
+        {/* Amount placeholder */}
+        <div className="w-40 h-10 rounded-xl bg-zinc-100 dark:bg-zinc-800" />
+      </div>
+    </div>
+  </div>
+);
 const AccountsMain = () => {
   const { t } = useTranslation();
   const { isRTL } = useRtl();

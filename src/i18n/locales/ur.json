@@ -12,8 +12,18 @@
     "user_fallback": "صارف",
     "notifications": "اطلاعات",
     "edit": "ترمیم کریں",
-    "delete": "ختم کریں",
-    "update": "اپ ڈیٹ کریں"
+    "currency_symbol": "روپے",
+    "periods": {
+      "daily": "روزانہ",
+      "weekly": "ہفتہ وار",
+      "monthly": "ماہانہ",
+      "yearly": "سالانہ",
+      "custom": "مخصوص مدت"
+    },
+  "delete": "حذف کریں",
+  "cancel": "منسوخ کریں",
+  "confirm": "تصدیق کریں",
+  "save": "تبدیلیاں محفوظ کریں"
   },
   "auth": {
     "welcome_back": "خوش آمدید!",
@@ -47,6 +57,7 @@
     "display_name": "ظاہری نام",
     "recovery_email": "رابطہ ای میل",
     "address_title": "آپ کہاں مقیم ہیں؟",
+    "address_label": "پتہ (گلی، مکان نمبر)",
     "country": "ملک منتخب کریں",
     "city": "شہر منتخب کریں",
     "detected_country": "منتخب کردہ ملک",
@@ -62,9 +73,7 @@
     "invalid_email": "درست ای میل درج کریں",
     "required": "یہ خانہ پُر کرنا لازمی ہے",
     "min_address": "براہ کرم مکمل پتہ درج کریں",
-    "invalid_phone": "براہ کرم کنٹری کوڈ کے ساتھ درست فون نمبر درج کریں",
-  "required_ur": "یہ خانہ پُر کرنا لازمی ہے"
-
+    "invalid_phone": "براہ کرم کنٹری کوڈ کے ساتھ درست فون نمبر درج کریں"
   },
   "settings": {
     "primary_currency": "بنیادی کرنسی",
@@ -98,7 +107,7 @@
     "edit_vault": "اکاؤنٹ میں ترمیم",
     "initialize_new": "نیا اکاؤنٹ شروع کریں",
     "edit_desc": "اپنے اکاؤنٹ کی تفصیلات اور بیلنس کی ترتیبات اپ ڈیٹ کریں۔",
-    "setup_vault_desc": "اپنے مالی معاملات کو ٹریک کرنے کے لیے نیا اکاؤنٹ ترتیب دیں۔",
+    "setup_vault_desc": "Set up a new account to start tracking your finances.",
     "label_name": "اکاؤنٹ کا نام",
     "label_type": "اکاؤنٹ کی قسم",
     "label_currency": "کرنسی",
@@ -107,10 +116,48 @@
     "placeholder_name": "اکاؤنٹ کا نام",
     "placeholder_amount": "رقم"
   },
-  "First Name": "پہلا نام",
-  "Last Name": "آخری نام",
-  "Display Name": "ظاہری نام",
-  "Recovery Email": "رابطہ ای میل",
-  "Address (Street, House No.)": "پتہ (گلی، مکان نمبر)",
-  "onboarding.phone_placeholder": "فون نمبر (مثلاً +92 300 1234567)"
+  "budgets": {
+    "title": "بجٹ گارڈ ریلز",
+   "subtitle": "اپنی آمدنی کے مطابق اخراجات کی حد مقرر کریں",
+    "add_btn": "نیا بجٹ بنائیں",
+    "empty_title": "کوئی بجٹ مقرر نہیں ہے",
+    "empty_desc": "آپ نے ابھی تک اخراجات کی کوئی حد مقرر نہیں کی ہے۔ اپنی پہلی کیٹیگری کا بجٹ بنا کر شروعات کریں۔",
+    "stats": {
+      "health": "مجموعی صورتحال",
+      "used": "استعمال شدہ حد",
+      "allocated": "مختص کردہ رقم",
+      "remaining": "بقیہ گنجائش"
+    },
+    "modal": {
+      "title_add": "بجٹ کی حد مقرر کریں",
+      "title_edit": "بجٹ تبدیل کریں",
+      "subtitle_add": "Establish spending boundaries",
+      "subtitle_edit": "Adjust your spending boundaries",
+      "label_category": "کیٹیگری",
+      "label_currency": "کرنسی",
+      "label_limit": "بجٹ کی رقم",
+      "label_start": "شروعات کی تاریخ",
+      "label_end": "ختم ہونے کی تاریخ",
+      "label_threshold": "الرٹ کی حد",
+      "btn_submit_add": "بجٹ محفوظ کریں",
+      "btn_submit_edit": "تبدیلیاں محفوظ کریں",
+      "btn_processing": "پروسیسنگ ہو رہی ہے...",
+      "success_add": "بجٹ کی حد مقرر کر دی گئی ہے!",
+      "success_edit": "بجٹ کامیابی سے اپ ڈیٹ ہو گیا!",
+      "delete_title": "بجٹ ختم کریں؟",
+      "delete_warning": "کیا آپ واقعی اس بجٹ کو حذف کرنا چاہتے ہیں؟ اس عمل کو واپس نہیں لیا جا سکتا۔",
+      "success_delete": "بجٹ کامیابی کے ساتھ حذف کر دیا گیا",
+      "error_date_range": "ختم ہونے کی تاریخ شروع ہونے کی تاریخ کے بعد ہونی چاہیے"
+    },
+    "card": {
+      "remaining": "خرچ کرنے کے لیے باقی",
+      "used": "استعمال شدہ",
+      "of": "کل",
+      "health": "بجٹ کی صورتحال",
+      "good": "بہترین",
+      "warning": "حد کے قریب",
+      "exceeded_by": "حد سے زیادہ",
+      "ends": "ختم ہوگا"
+    }
+  }
 }

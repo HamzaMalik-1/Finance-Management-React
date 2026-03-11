@@ -1,13 +1,62 @@
 @import "tailwindcss";
 
-html, body {
-  height: 100%;
-  margin: 0;
-  padding: 0;
-  /* This prevents the "bounce" scroll on mobile and desktop */
-  overflow: hidden; 
+@layer base {
+  html, body {
+    /* height: 100%;
+    margin: 0;
+    padding: 0; */
+    /* ✅ Premium Zinc background for Light/Dark transitions */
+    @apply bg-white dark:bg-zinc-950 text-zinc-900 dark:text-zinc-100;
+    /* ✅ Prevents layout shift during modal opens */
+    overflow-x: hidden;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+  }
+
+  #root {
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+  }
+
+  /* ✅ Logical direction fix for RTL scrollbars */
+  [dir="rtl"] {
+    text-align: right;
+  }
 }
 
-#root {
-  height: 100%;
+@layer components {
+  /* ✅ Premium "Vault" Scrollbar Styling */
+  .custom-scrollbar::-webkit-scrollbar {
+    width: 6px;
+    height: 6px;
+  }
+
+  .custom-scrollbar::-webkit-scrollbar-track {
+    background: transparent;
+    margin: 10px;
+  }
+
+  .custom-scrollbar::-webkit-scrollbar-thumb {
+    @apply bg-zinc-200 dark:bg-zinc-800 rounded-full hover:bg-zinc-300 dark:hover:bg-zinc-700 transition-colors;
+  }
+
+  /* ✅ Hide scrollbars but keep functionality for main containers if needed */
+  .no-scrollbar::-webkit-scrollbar {
+    display: none;
+  }
+  .no-scrollbar {
+    -ms-overflow-style: none;
+    scrollbar-width: none;
+  }
+}
+
+/* ✅ Fix for Date Input appearance in Dark Mode */
+input[type="date"]::-webkit-calendar-picker-indicator {
+  @apply dark:invert opacity-50 hover:opacity-100 cursor-pointer;
+}
+
+/* ✅ Selection Highlight to match Indigo theme */
+::selection {
+  @apply bg-indigo-100 dark:bg-indigo-900/40 text-indigo-900 dark:text-indigo-100;
 }

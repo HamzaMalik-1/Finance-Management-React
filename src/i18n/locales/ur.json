@@ -27,7 +27,8 @@
     "income": "آمدنی",
     "expense": "اخراجات",
     "update": "تبدیلیاں محفوظ کریں",
-    "processing": "ہم آہنگی ہو رہی ہے..."
+    "processing": "ہم آہنگی ہو رہی ہے...",
+    "note": "نوٹ"
   },
   "auth": {
     "welcome_back": "خوش آمدید!",
@@ -85,7 +86,22 @@
     "appearance": "ظاہری شکل",
     "light": "روشن",
     "dark": "تاریک",
-    "system": "سسٹم"
+    "system": "سسٹم",
+    "title": "کمانڈ سینٹر",
+    "subtitle": "اپنی شناخت اور مالی ماحول کا انتظام کریں",
+    "tabs": {
+      "profile": "پروفائل اکاؤنٹ",
+      "preferences": "مالی ترجیحات",
+      "security": "سیکیورٹی"
+    },
+    "preferences": {
+    "currency_label": "رپورٹنگ کرنسی",
+    "theme_label": "انٹرفیس تھیم",
+    "lang_label": "سسٹم کی زبان",
+    "note": "آپ کی رپورٹنگ کرنسی تبدیل کرنے سے تمام ڈیش بورڈ اعدادوشمار نئی شرح مبادلہ کے مطابق اپ ڈیٹ ہو جائیں گے۔",
+    "success": "ترجیحات اپ ڈیٹ ہو گئیں",
+    "error": "ترجیحات کو ہم آہنگ کرنے میں ناکامی"
+  }
   },
   "nav": {
     "dashboard": "ڈیش بورڈ",
@@ -192,69 +208,80 @@
     "save_sub_btn": "ذیلی کیٹیگری محفوظ کریں"
   },
   "dashboard": {
-  "title": "مالیاتی بصیرت",
-  "subtitle": "{{name}} کی عالمی مالیاتی صورتحال",
-  "liquidity": "کل نقد رقم",
-  "revenue": "ماہانہ آمدنی",
-  "burn": "ماہانہ اخراجات",
-  "stream": "حالیہ سرگرمیاں",
-  "ledger_link": "مکمل ریکارڈ",
-  "intensity": "شدت کا نقشہ",
-  "intelligence_chart": "کیش فلو انٹیلیجنس",
-  "live_stream": "لائیو اپ ڈیٹس"
-},
-"transactions": {
-  "title": "لیجر",
-  "new_entry": "نیا اندراج",
-  "table": {
-    "header_transaction": "لین دین",
-    "header_account": "اکاؤنٹ",
-    "header_status": "حیثیت",
-    "header_amount": "رقم",
-    "no_description": "کوئی تفصیل نہیں",
-    "status_completed": "مکمل",
-    "status_pending": "زیر التواء"
-  }
-},
-"transaction_modal": {
-  "title": "نیا اندراج",
-  "confirm": "لین دین کی تصدیق کریں",
-  "processing": "پروسیسنگ ہو رہی ہے...",
-  "success": "ٹرانزیکشن ریکارڈ ہوگئی!",
-  "types": {
-    "expense": "خرچہ",
-    "income": "آمدنی",
-    "transfer": "منتقلی"
+    "title": "مالیاتی بصیرت",
+    "subtitle": "{{name}} کی عالمی مالیاتی صورتحال",
+    "liquidity": "کل نقد رقم",
+    "revenue": "ماہانہ آمدنی",
+    "burn": "ماہانہ اخراجات",
+    "stream": "حالیہ سرگرمیاں",
+    "ledger_link": "مکمل ریکارڈ",
+    "intensity": "شدت کا نقشہ",
+    "intelligence_chart": "کیش فلو انٹیلیجنس",
+    "live_stream": "لائیو اپ ڈیٹس"
   },
-  "fields": {
-    "amount_placeholder": "رقم",
-    "account": "اکاؤنٹ",
-    "from_account": "اکاؤنٹ سے",
-    "to_account": "اکاؤنٹ کو",
-    "category": "قسم",
-    "date": "تاریخ",
-    "note": "نوٹ",
-    "note_placeholder": "کھانا، کرایہ، وغیرہ"
-  }
-},
-"notifications": {
-  "title": "الرٹ سینٹر",
-  "subtitle": "آپ کے پاس <1>{{count}}</1> غیر پڑھے ہوئے پیغامات ہیں",
-  "mark_all": "تمام پڑھے ہوئے نشان زد کریں",
-  "empty_state": "سکون ہی سکون ہے۔ سب کچھ اپ ٹو ڈیٹ ہے!",
-  "empty_unread": "کوئی نیا پیغام موجود نہیں ہے۔",
-  "empty_read": "پڑھنے کی کوئی تاریخ موجود نہیں ہے۔",
-  "filters": {
-    "all": "تمام",
-    "unread": "غیر پڑھے ہوئے",
-    "read": "پڑھے ہوئے"
+  "transactions": {
+    "title": "لیجر",
+    "new_entry": "نیا اندراج",
+    "table": {
+      "header_transaction": "لین دین",
+      "header_account": "اکاؤنٹ",
+      "header_status": "حیثیت",
+      "header_amount": "رقم",
+      "no_description": "کوئی تفصیل نہیں",
+      "status_completed": "مکمل",
+      "status_pending": "زیر التواء"
+    }
   },
-  "types": {
-    "budget_exceeded": "بجٹ سے تجاوز",
-    "budget_warning": "بجٹ وارننگ",
-    "budget_alert": "بجٹ الرٹ",
-    "debt_settled": "قرض کی ادائیگی",
-    "system": "سسٹم اپ ڈیٹ"
-  }
+  "transaction_modal": {
+    "title": "نیا اندراج",
+    "confirm": "لین دین کی تصدیق کریں",
+    "processing": "پروسیسنگ ہو رہی ہے...",
+    "success": "ٹرانزیکشن ریکارڈ ہوگئی!",
+    "types": {
+      "expense": "خرچہ",
+      "income": "آمدنی",
+      "transfer": "منتقلی"
+    },
+    "fields": {
+      "amount_placeholder": "رقم",
+      "account": "اکاؤنٹ",
+      "from_account": "اکاؤنٹ سے",
+      "to_account": "اکاؤنٹ کو",
+      "category": "قسم",
+      "date": "تاریخ",
+      "note": "نوٹ",
+      "note_placeholder": "کھانا، کرایہ، وغیرہ"
+    }
+  },
+  "notifications": {
+    "title": "الرٹ سینٹر",
+    "subtitle": "آپ کے پاس <1>{{count}}</1> غیر پڑھے ہوئے پیغامات ہیں",
+    "mark_all": "تمام پڑھے ہوئے نشان زد کریں",
+    "empty_state": "سکون ہی سکون ہے۔ سب کچھ اپ ٹو ڈیٹ ہے!",
+    "empty_unread": "کوئی نیا پیغام موجود نہیں ہے۔",
+    "empty_read": "پڑھنے کی کوئی تاریخ موجود نہیں ہے۔",
+    "filters": {
+      "all": "تمام",
+      "unread": "غیر پڑھے ہوئے",
+      "read": "پڑھے ہوئے"
+    },
+    "types": {
+      "budget_exceeded": "بجٹ سے تجاوز",
+      "budget_warning": "بجٹ وارننگ",
+      "budget_alert": "بجٹ الرٹ",
+      "debt_settled": "قرض کی ادائیگی",
+      "system": "سسٹم اپ ڈیٹ"
+    }
+  },
+  "profile": {
+  "identity_title": "اکاؤنٹ کی شناخت",
+  "uid": "UID",
+  "first_name": "پہلا نام",
+  "last_name": "آخری نام",
+  "recovery_email": "رابطہ ای میل",
+  "save_btn": "تبدیلیاں محفوظ کریں",
+  "saving_btn": "محفوظ ہو رہا ہے...",
+  "success_msg": "پروفائل کو اپ ڈیٹ کر دیا گیا ہے!",
+  "error_msg": "اپ ڈیٹ ناکام ہو گیا"
 }
 }

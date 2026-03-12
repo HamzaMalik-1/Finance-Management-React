@@ -27,7 +27,8 @@
     "income": "Income",
     "expense": "Expense",
     "update": "Update Ledger",
-    "processing": "Synchronizing..."
+    "processing": "Synchronizing...",
+    "note": "Note"
   },
   "auth": {
     "welcome_back": "Welcome Back!",
@@ -85,7 +86,22 @@
     "appearance": "Appearance",
     "light": "Light",
     "dark": "Dark",
-    "system": "System"
+    "system": "System",
+    "preferences": {
+      "currency_label": "Reporting Currency",
+      "theme_label": "Interface Theme",
+      "lang_label": "System Language",
+      "note": "Changing your reporting currency will update all dashboard stats to reflect the new exchange rate. Theme changes apply instantly.",
+      "success": "Preferences updated",
+      "error": "Failed to sync preferences"
+    },
+    "title": "Command Center",
+    "subtitle": "Manage your identity and financial environment",
+    "tabs": {
+      "profile": "Account Profile",
+      "preferences": "Financial Prefs",
+      "security": "Security"
+    }
   },
   "nav": {
     "dashboard": "Dashboard",
@@ -192,69 +208,80 @@
     "save_sub_btn": "Establish Sub-Category"
   },
   "dashboard": {
-  "title": "Intelligence",
-  "subtitle": "Global financial status for {{name}}",
-  "liquidity": "Total Liquidity",
-  "revenue": "Monthly Revenue",
-  "burn": "Monthly Burn",
-  "stream": "Recent Stream",
-  "ledger_link": "Full Ledger",
-  "intensity": "Intensity Map",
-  "intelligence_chart": "Cash Flow Intelligence",
-  "live_stream": "Live Stream"
-},
-"transactions": {
-  "title": "Ledger",
-  "new_entry": "New Entry",
-  "table": {
-    "header_transaction": "Transaction",
-    "header_account": "Account",
-    "header_status": "Status",
-    "header_amount": "Amount",
-    "no_description": "No description",
-    "status_completed": "Completed",
-    "status_pending": "Pending"
-  }
-},
-"transaction_modal": {
-  "title": "New Entry",
-  "confirm": "Confirm Transaction",
-  "processing": "Processing...",
-  "success": "Transaction recorded!",
-  "types": {
-    "expense": "Expense",
-    "income": "Income",
-    "transfer": "Transfer"
+    "title": "Intelligence",
+    "subtitle": "Global financial status for {{name}}",
+    "liquidity": "Total Liquidity",
+    "revenue": "Monthly Revenue",
+    "burn": "Monthly Burn",
+    "stream": "Recent Stream",
+    "ledger_link": "Full Ledger",
+    "intensity": "Intensity Map",
+    "intelligence_chart": "Cash Flow Intelligence",
+    "live_stream": "Live Stream"
   },
-  "fields": {
-    "amount_placeholder": "Amount",
-    "account": "Account",
-    "from_account": "From Account",
-    "to_account": "To Account",
-    "category": "Category",
-    "date": "Date",
-    "note": "Note",
-    "note_placeholder": "Coffee, Rent, etc."
-  }
-},
-"notifications": {
-  "title": "Alert Center",
-  "subtitle": "You have <1>{{count}}</1> unread updates",
-  "mark_all": "Mark all read",
-  "empty_state": "Silence is golden. All caught up!",
-  "empty_unread": "No unread alerts found.",
-  "empty_read": "No read history found.",
-  "filters": {
-    "all": "All",
-    "unread": "Unread",
-    "read": "Read"
+  "transactions": {
+    "title": "Ledger",
+    "new_entry": "New Entry",
+    "table": {
+      "header_transaction": "Transaction",
+      "header_account": "Account",
+      "header_status": "Status",
+      "header_amount": "Amount",
+      "no_description": "No description",
+      "status_completed": "Completed",
+      "status_pending": "Pending"
+    }
   },
-  "types": {
-    "budget_exceeded": "Budget Exceeded",
-    "budget_warning": "Budget Warning",
-    "budget_alert": "Budget Alert",
-    "debt_settled": "Debt Settled",
-    "system": "System Update"
+  "transaction_modal": {
+    "title": "New Entry",
+    "confirm": "Confirm Transaction",
+    "processing": "Processing...",
+    "success": "Transaction recorded!",
+    "types": {
+      "expense": "Expense",
+      "income": "Income",
+      "transfer": "Transfer"
+    },
+    "fields": {
+      "amount_placeholder": "Amount",
+      "account": "Account",
+      "from_account": "From Account",
+      "to_account": "To Account",
+      "category": "Category",
+      "date": "Date",
+      "note": "Note",
+      "note_placeholder": "Coffee, Rent, etc."
+    }
+  },
+  "notifications": {
+    "title": "Alert Center",
+    "subtitle": "You have <1>{{count}}</1> unread updates",
+    "mark_all": "Mark all read",
+    "empty_state": "Silence is golden. All caught up!",
+    "empty_unread": "No unread alerts found.",
+    "empty_read": "No read history found.",
+    "filters": {
+      "all": "All",
+      "unread": "Unread",
+      "read": "Read"
+    },
+    "types": {
+      "budget_exceeded": "Budget Exceeded",
+      "budget_warning": "Budget Warning",
+      "budget_alert": "Budget Alert",
+      "debt_settled": "Debt Settled",
+      "system": "System Update"
+    }
+  },
+  "profile": {
+    "identity_title": "Account Identity",
+    "uid": "UID",
+    "first_name": "First Name",
+    "last_name": "Last Name",
+    "recovery_email": "Recovery Email",
+    "save_btn": "Save Changes",
+    "saving_btn": "Saving...",
+    "success_msg": "Profile synchronized!",
+    "error_msg": "Update failed"
   }
-}
 }

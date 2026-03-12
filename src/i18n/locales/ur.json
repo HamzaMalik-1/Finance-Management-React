@@ -190,5 +190,17 @@
     "edit_sub_title": "ذیلی کیٹیگری میں ترمیم",
     "sub_name_placeholder": "ذیلی کیٹیگری کا نام (مثلاً پھل)",
     "save_sub_btn": "ذیلی کیٹیگری محفوظ کریں"
-  }
+  },
+  "dashboard": {
+  "title": "مالیاتی بصیرت",
+  "subtitle": "{{name}} کی عالمی مالیاتی صورتحال",
+  "liquidity": "کل نقد رقم",
+  "revenue": "ماہانہ آمدنی",
+  "burn": "ماہانہ اخراجات",
+  "stream": "حالیہ سرگرمیاں",
+  "ledger_link": "مکمل ریکارڈ",
+  "intensity": "شدت کا نقشہ",
+  "intelligence_chart": "کیش فلو انٹیلیجنس",
+  "live_stream": "لائیو اپ ڈیٹس"
+}
 }

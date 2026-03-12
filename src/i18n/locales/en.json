@@ -190,5 +190,17 @@
     "edit_sub_title": "Edit Sub-Classification",
     "sub_name_placeholder": "Sub-category Name (e.g. Apples)",
     "save_sub_btn": "Establish Sub-Category"
-  }
+  },
+  "dashboard": {
+  "title": "Intelligence",
+  "subtitle": "Global financial status for {{name}}",
+  "liquidity": "Total Liquidity",
+  "revenue": "Monthly Revenue",
+  "burn": "Monthly Burn",
+  "stream": "Recent Stream",
+  "ledger_link": "Full Ledger",
+  "intensity": "Intensity Map",
+  "intelligence_chart": "Cash Flow Intelligence",
+  "live_stream": "Live Stream"
+}
 }

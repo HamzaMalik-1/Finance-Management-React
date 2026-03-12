@@ -20,10 +20,14 @@
       "custom": "Custom Range"
     },
     "edit": "Edit",
-  "delete": "Delete",
-  "cancel": "Cancel",
-  "confirm": "Confirm",
-  "save": "Save Changes"
+    "delete": "Delete",
+    "cancel": "Cancel",
+    "confirm": "Confirm",
+    "save": "Save Changes",
+    "income": "Income",
+    "expense": "Expense",
+    "update": "Update Ledger",
+    "processing": "Synchronizing..."
   },
   "auth": {
     "welcome_back": "Welcome Back!",
@@ -91,7 +95,9 @@
     "debts": "Borrow & Lend",
     "categories": "Categories",
     "notifications": "Notifications",
-    "settings": "Settings"
+    "settings": "Settings",
+    "expense": "Expense",
+    "income": "Income"
   },
   "user": {
     "premium": "Premium User",
@@ -159,5 +165,30 @@
       "exceeded_by": "Exceeded by",
       "ends": "Ends"
     }
+  },
+  "categories": {
+    "title": "Classifications",
+    "subtitle": "Hierarchy of your ledger categories",
+    "add_btn": "Add Category",
+    "search_placeholder": "Search {{type}}...",
+    "syncing": "Synchronizing Ledger...",
+    "empty": "No {{type}} classifications found.",
+    "sub_count": "{{count}} Sub-categories",
+    "delete_title": "Delete Category?",
+    "delete_warning": "Are you sure? This will remove the category and all associated sub-categories.",
+    "new_title": "Initialize Category",
+    "edit_title": "Edit Classification",
+    "type": "Ledger Type",
+    "name_placeholder": "Category Name (e.g. Groceries)",
+    "select_icon": "Select Visual Identity",
+    "select_color": "Select Theme Color",
+    "create_btn": "Establish Category",
+    "name_min_error": "Name must be at least 2 characters",
+    "icon_required": "Please select an icon",
+    "color_required": "Please select a color",
+    "add_sub_title": "Initialize Sub-Category",
+    "edit_sub_title": "Edit Sub-Classification",
+    "sub_name_placeholder": "Sub-category Name (e.g. Apples)",
+    "save_sub_btn": "Establish Sub-Category"
   }
 }

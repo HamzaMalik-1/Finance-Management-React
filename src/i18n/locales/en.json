@@ -236,5 +236,25 @@
     "note": "Note",
     "note_placeholder": "Coffee, Rent, etc."
   }
+},
+"notifications": {
+  "title": "Alert Center",
+  "subtitle": "You have <1>{{count}}</1> unread updates",
+  "mark_all": "Mark all read",
+  "empty_state": "Silence is golden. All caught up!",
+  "empty_unread": "No unread alerts found.",
+  "empty_read": "No read history found.",
+  "filters": {
+    "all": "All",
+    "unread": "Unread",
+    "read": "Read"
+  },
+  "types": {
+    "budget_exceeded": "Budget Exceeded",
+    "budget_warning": "Budget Warning",
+    "budget_alert": "Budget Alert",
+    "debt_settled": "Debt Settled",
+    "system": "System Update"
+  }
 }
 }

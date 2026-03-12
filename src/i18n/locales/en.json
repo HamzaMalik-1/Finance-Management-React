@@ -202,5 +202,39 @@
   "intensity": "Intensity Map",
   "intelligence_chart": "Cash Flow Intelligence",
   "live_stream": "Live Stream"
+},
+"transactions": {
+  "title": "Ledger",
+  "new_entry": "New Entry",
+  "table": {
+    "header_transaction": "Transaction",
+    "header_account": "Account",
+    "header_status": "Status",
+    "header_amount": "Amount",
+    "no_description": "No description",
+    "status_completed": "Completed",
+    "status_pending": "Pending"
+  }
+},
+"transaction_modal": {
+  "title": "New Entry",
+  "confirm": "Confirm Transaction",
+  "processing": "Processing...",
+  "success": "Transaction recorded!",
+  "types": {
+    "expense": "Expense",
+    "income": "Income",
+    "transfer": "Transfer"
+  },
+  "fields": {
+    "amount_placeholder": "Amount",
+    "account": "Account",
+    "from_account": "From Account",
+    "to_account": "To Account",
+    "category": "Category",
+    "date": "Date",
+    "note": "Note",
+    "note_placeholder": "Coffee, Rent, etc."
+  }
 }
 }

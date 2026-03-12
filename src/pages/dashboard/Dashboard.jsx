@@ -241,12 +241,16 @@ const StatCard = ({ label, value, icon, variant, isRTL, currencySymbol }) => {
       whileHover={{ y: -8 }}
       className={`${styles[variant]} p-8 rounded-[2.5rem] relative overflow-hidden transition-all shadow-2xl`}
     >
+      <div className='flex justify-center items-center gap-5'>
+
       <div className={`mb-5 w-12 h-12 rounded-2xl flex items-center justify-center shadow-inner ${variant === 'primary' ? 'bg-white/20' : 'bg-zinc-900 border border-zinc-800'}`}>
         {icon}
       </div>
-      <p className={`text-[10px] font-black uppercase tracking-[0.2em] ${variant === 'primary' ? 'text-indigo-100' : 'text-zinc-500'}`}>
+      <p className={`text-xs font-black uppercase tracking-[0.2em] ${variant === 'primary' ? 'text-indigo-100' : 'text-zinc-500'}`}>
         {label}
       </p>
+      </div>
+
       <div className={`flex items-baseline gap-1 mt-1 ${isRTL ? "flex-row-reverse" : "flex-row"}`}>
         <span className={`text-lg font-bold ${variant === 'primary' ? 'text-white/80' : 'text-zinc-400'}`}>
             {currencySymbol}

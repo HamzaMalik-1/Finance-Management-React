@@ -202,5 +202,39 @@
   "intensity": "شدت کا نقشہ",
   "intelligence_chart": "کیش فلو انٹیلیجنس",
   "live_stream": "لائیو اپ ڈیٹس"
+},
+"transactions": {
+  "title": "لیجر",
+  "new_entry": "نیا اندراج",
+  "table": {
+    "header_transaction": "لین دین",
+    "header_account": "اکاؤنٹ",
+    "header_status": "حیثیت",
+    "header_amount": "رقم",
+    "no_description": "کوئی تفصیل نہیں",
+    "status_completed": "مکمل",
+    "status_pending": "زیر التواء"
+  }
+},
+"transaction_modal": {
+  "title": "نیا اندراج",
+  "confirm": "لین دین کی تصدیق کریں",
+  "processing": "پروسیسنگ ہو رہی ہے...",
+  "success": "ٹرانزیکشن ریکارڈ ہوگئی!",
+  "types": {
+    "expense": "خرچہ",
+    "income": "آمدنی",
+    "transfer": "منتقلی"
+  },
+  "fields": {
+    "amount_placeholder": "رقم",
+    "account": "اکاؤنٹ",
+    "from_account": "اکاؤنٹ سے",
+    "to_account": "اکاؤنٹ کو",
+    "category": "قسم",
+    "date": "تاریخ",
+    "note": "نوٹ",
+    "note_placeholder": "کھانا، کرایہ، وغیرہ"
+  }
 }
 }

@@ -29,7 +29,9 @@ const LoginSignup = () => {
   const schema = z.object({
     email: z.string().email(t("auth.invalid_email")),
     password: z.string().min(8, t("auth.password_short")),
-    username: isLogin ? z.string().optional() : z.string().min(3, t("auth.username_short")),
+    username: isLogin
+      ? z.string().optional()
+      : z.string().min(3, t("auth.username_short")),
   });
 
   // 2. Initialize React Hook Form
@@ -47,21 +49,31 @@ const LoginSignup = () => {
 
   // Watch values for the floating label logic in AnimatedSpeechInput
   const formValues = watch();
-
+ const [isDarkMode, setIsDarkMode] = useState(
+    document.documentElement.classList.contains("dark")
+  );
   const toggleMode = () => {
     setIsLogin(!isLogin);
-    reset({ email: "", username: "", password: "" }); 
+    reset({ email: "", username: "", password: "" });
   };
+
+  useEffect(() => {
+    const observer = new MutationObserver(() => {
+      setIsDarkMode(document.documentElement.classList.contains("dark"));
+    });
+    observer.observe(document.documentElement, { attributes: true, attributeFilter: ["class"] });
+    return () => observer.disconnect();
+  }, []);
 
   // 3. Form Submission
   const onSubmit = async (data) => {
     try {
       if (isLogin) {
-        const response = await login({ 
-          email: data.email, 
-          password: data.password 
+        const response = await login({
+          email: data.email,
+          password: data.password,
         }).unwrap();
-        dispatch(setCredentials(response.data)); 
+        dispatch(setCredentials(response.data));
         navigate("/onboarding/");
       } else {
         await signup(data).unwrap();
@@ -73,14 +85,16 @@ const LoginSignup = () => {
   };
 
   return (
-    <div dir={isRTL ? "rtl" : "ltr"} className="min-h-screen bg-app-bg text-app-text flex items-center justify-center p-4 transition-colors duration-300">
+    <div
+      dir={isRTL ? "rtl" : "ltr"}
+      className="min-h-screen bg-app-bg text-app-text flex items-center justify-center p-4 transition-colors duration-300"
+    >
       <div className="fixed top-5 right-5 flex items-center gap-3 z-[100] rtl:right-auto rtl:left-5">
         <LanguageSwitcher />
-        <ThemeToggle /> 
+        <ThemeToggle />
       </div>
 
       <div className="relative w-full max-w-md md:max-w-4xl min-h-[550px] md:h-[70vh] bg-card-bg rounded-2xl overflow-hidden shadow-2xl flex flex-col md:flex-row border border-zinc-200 dark:border-zinc-800">
-        
         {/* ANIMATED OVERLAY */}
         <motion.div
           initial={false}
@@ -96,9 +110,16 @@ const LoginSignup = () => {
               exit={{ opacity: 0, scale: 0.9 }}
               className="flex flex-col items-center"
             >
-              <h2 className="text-4xl font-bold mb-4">{isLogin ? t("auth.welcome_back") : t("auth.join_us")}</h2>
-              <p className="text-indigo-100 mb-8 max-w-[280px]">{isLogin ? t("auth.login_subtitle") : t("auth.signup_subtitle")}</p>
-              <button onClick={toggleMode} className="px-10 py-3 border-2 border-white rounded-full font-semibold hover:bg-white hover:text-indigo-600 transition-all active:scale-95">
+              <h2 className="text-4xl font-bold mb-4">
+                {isLogin ? t("auth.welcome_back") : t("auth.join_us")}
+              </h2>
+              <p className="text-indigo-100 mb-8 max-w-[280px]">
+                {isLogin ? t("auth.login_subtitle") : t("auth.signup_subtitle")}
+              </p>
+              <button
+                onClick={toggleMode}
+                className="px-10 py-3 border-2 border-white rounded-full font-semibold hover:bg-white hover:text-indigo-600 transition-all active:scale-95"
+              >
                 {isLogin ? t("auth.no_account") : t("auth.have_account")}
               </button>
             </motion.div>
@@ -107,43 +128,60 @@ const LoginSignup = () => {
 
         {/* FORMS */}
         <div className="flex w-full h-full relative">
-          <div className={`w-full md:w-1/2 flex flex-col justify-center p-8 md:p-12 ${!isLogin && 'hidden md:flex'}`}>
-             <AnimatePresence mode="wait">
-               {isLogin && (
-                 <motion.div key="login-container" initial={{ opacity: 0, y: 10 }} animate={{ opacity: 1, y: 0 }} exit={{ opacity: 0, y: 10 }} className="w-full">
-                    <LoginForm 
-                      t={t} 
-                      register={register} 
-                      handleSubmit={handleSubmit(onSubmit)} 
-                      errors={errors} 
-                      isLoading={isLoginLoading} 
-                      isLogin={isLogin} 
-                      values={formValues} 
-                      toggleMode={toggleMode}
-                    />
-                 </motion.div>
-               )}
-             </AnimatePresence>
+          <div
+            className={`w-full md:w-1/2 flex flex-col justify-center p-8 md:p-12 ${!isLogin && "hidden md:flex"}`}
+          >
+            <AnimatePresence mode="wait">
+              {isLogin && (
+                <motion.div
+                  key="login-container"
+                  initial={{ opacity: 0, y: 10 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  exit={{ opacity: 0, y: 10 }}
+                  className="w-full"
+                >
+                  <LoginForm
+                    t={t}
+                    register={register}
+                    handleSubmit={handleSubmit(onSubmit)}
+                    errors={errors}
+                    isLoading={isLoginLoading}
+                    isLogin={isLogin}
+                    values={formValues}
+                    toggleMode={toggleMode}
+                    isDarkMode={isDarkMode}
+                  />
+                </motion.div>
+              )}
+            </AnimatePresence>
           </div>
 
-          <div className={`w-full md:w-1/2 flex flex-col justify-center p-8 md:p-12 ${isLogin && 'hidden md:flex'}`}>
-             <AnimatePresence mode="wait">
-               {!isLogin && (
-                 <motion.div key="signup-container" initial={{ opacity: 0, y: 10 }} animate={{ opacity: 1, y: 0 }} exit={{ opacity: 0, y: 10 }} className="w-full">
-                    <SignupForm 
-                      t={t} 
-                      register={register} 
-                      handleSubmit={handleSubmit(onSubmit)} 
-                      errors={errors} 
-                      isLoading={isSignupLoading} 
-                      values={formValues} 
-                      toggleMode={toggleMode}
-                      isLogin={isLogin}
-                    />
-
-                 </motion.div>
-               )}
-             </AnimatePresence>
+          <div
+            className={`w-full md:w-1/2 flex flex-col justify-center p-8 md:p-12 ${isLogin && "hidden md:flex"}`}
+          >
+            <AnimatePresence mode="wait">
+              {!isLogin && (
+                <motion.div
+                  key="signup-container"
+                  initial={{ opacity: 0, y: 10 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  exit={{ opacity: 0, y: 10 }}
+                  className="w-full"
+                >
+                  <SignupForm
+                    t={t}
+                    register={register}
+                    handleSubmit={handleSubmit(onSubmit)}
+                    errors={errors}
+                    isLoading={isSignupLoading}
+                    values={formValues}
+                    toggleMode={toggleMode}
+                    isLogin={isLogin}
+                    isDarkMode={isDarkMode}
+                  />
+                </motion.div>
+              )}
+            </AnimatePresence>
           </div>
         </div>
       </div>
@@ -153,115 +191,170 @@ const LoginSignup = () => {
 
 // --- Sub-Components ---
 
-const LoginForm = ({ t, register, handleSubmit, errors, isLoading, isLogin, values, toggleMode }) => (
+const LoginForm = ({
+  t,
+  register,
+  handleSubmit,
+  errors,
+  isLoading,
+  isLogin,
+  values,
+  toggleMode,
+  isDarkMode,
+}) => (
   <form onSubmit={handleSubmit} className="space-y-6">
-  <div 
-  aria-hidden="true"
-  style={{ 
-    opacity: 0, 
-    position: 'absolute', 
-    top: 0, 
-    left: 0, 
-    height: '1px', // Use a tiny height instead of 0
-    width: '1px', 
-    overflow: 'hidden', 
-    zIndex: -1 
-  }}
->
-  {/* The browser will "hit" these first because they appear earlier in the DOM */}
-  <input type="text" name="email" tabIndex="-1" autoComplete="username" />
-  <input type="password" name="password" tabIndex="-1" autoComplete="current-password" />
-</div>
+    <div
+      aria-hidden="true"
+      style={{
+        opacity: 0,
+        position: "absolute",
+        top: 0,
+        left: 0,
+        height: "1px", // Use a tiny height instead of 0
+        width: "1px",
+        overflow: "hidden",
+        zIndex: -1,
+      }}
+    >
+      {/* The browser will "hit" these first because they appear earlier in the DOM */}
+      <input type="text" name="email" tabIndex="-1" autoComplete="username" />
+      <input
+        type="password"
+        name="password"
+        tabIndex="-1"
+        autoComplete="current-password"
+      />
+    </div>
     <div className="space-y-2">
       <h3 className="text-2xl md:text-3xl font-bold">{t("auth.sign_in")}</h3>
       <p className="text-zinc-500 text-sm">{t("auth.welcome_msg")}</p>
     </div>
+    <div className="space-y-6">
+      <AnimatedSpeechInput
+        placeholder="auth.email"
+        type="email"
+        {...register("email")}
+        // ✅ Dynamically switches based on the 'dark' class presence
+        style={{ color: isDarkMode ? "#ffffff" : "#000000" }}
+        error={errors.email?.message}
+        autoComplete={isLogin ? "email" : "new-password"}
+      />
 
-  <div className="space-y-6">
-  <AnimatedSpeechInput 
-    placeholder="auth.email" 
-    type="email" 
-    {...register("email")}
-    // ✅ This forces the text color at the DOM level
-    style={{ color: "#000000" }} 
-    error={errors.email?.message}
-    autoComplete={isLogin ? "email" : "new-password"}
-  />
-  
-  <AnimatedSpeechInput 
-    placeholder="auth.password" 
-    type="password" 
-    {...register("password")}
-    // ✅ This forces the text color at the DOM level
-    style={{ color: "#000000" }}
-    error={errors.password?.message}
-    autoComplete={isLogin ? "current-password" : "new-password"}
-  />
-</div>
+      <AnimatedSpeechInput
+        placeholder="auth.password"
+        type="password"
+        {...register("password")}
+        style={{ color: isDarkMode ? "#ffffff" : "#000000" }}
+        error={errors.password?.message}
+        autoComplete={isLogin ? "current-password" : "new-password"}
+      />
+    </div>
 
-    <button type="submit" disabled={isLoading} className="w-full bg-indigo-600 text-white py-3.5 rounded-xl font-bold shadow-lg hover:bg-indigo-700 transition-all active:scale-[0.98] disabled:opacity-70">
+    <button
+      type="submit"
+      disabled={isLoading}
+      className="w-full bg-indigo-600 text-white py-3.5 rounded-xl font-bold shadow-lg hover:bg-indigo-700 transition-all active:scale-[0.98] disabled:opacity-70"
+    >
       {isLoading ? "..." : t("auth.login_btn")}
     </button>
     <p className="md:hidden text-center text-sm text-zinc-500">
-      {t("auth.no_account")} <span onClick={toggleMode} className="text-indigo-600 font-bold cursor-pointer">{t("auth.sign_up")}</span>
+      {t("auth.no_account")}{" "}
+      <span
+        onClick={toggleMode}
+        className="text-indigo-600 font-bold cursor-pointer"
+      >
+        {t("auth.sign_up")}
+      </span>
     </p>
   </form>
 );
 
-const SignupForm = ({ t, register, handleSubmit, errors, isLoading, values, toggleMode,isLogin }) => (
+const SignupForm = ({
+  t,
+  register,
+  handleSubmit,
+  errors,
+  isLoading,
+  values,
+  toggleMode,
+  isLogin,
+  isDarkMode,
+}) => (
   <form onSubmit={handleSubmit} className="space-y-6">
-<div 
-  aria-hidden="true"
-  style={{ 
-    opacity: 0, 
-    position: 'absolute', 
-    top: 0, 
-    left: 0, 
-    height: '1px', // Use a tiny height instead of 0
-    width: '1px', 
-    overflow: 'hidden', 
-    zIndex: -1 
-  }}
->
-  {/* The browser will "hit" these first because they appear earlier in the DOM */}
-  <input type="text" name="email" tabIndex="-1" autoComplete="username" />
-  <input type="password" name="password" tabIndex="-1" autoComplete="current-password" />
-</div>
+    <div
+      aria-hidden="true"
+      style={{
+        opacity: 0,
+        position: "absolute",
+        top: 0,
+        left: 0,
+        height: "1px", // Use a tiny height instead of 0
+        width: "1px",
+        overflow: "hidden",
+        zIndex: -1,
+      }}
+    >
+      {/* The browser will "hit" these first because they appear earlier in the DOM */}
+      <input type="text" name="email" tabIndex="-1" autoComplete="username" />
+      <input
+        type="password"
+        name="password"
+        tabIndex="-1"
+        autoComplete="current-password"
+      />
+    </div>
 
     <div className="space-y-2">
       <h3 className="text-2xl md:text-3xl font-bold">{t("auth.sign_up")}</h3>
       <p className="text-zinc-500 text-sm">{t("auth.signup_msg")}</p>
     </div>
 
-    <div className="space-y-1">
-      <AnimatedSpeechInput 
-        placeholder="auth.username" 
-        {...register("username")}
-        value={values.username}
-        error={errors.username?.message}
-      />
-      <AnimatedSpeechInput 
-        placeholder="auth.email" 
-        type="email" 
-        {...register("email")}
-        key={isLogin ? "login-email" : "signup-email"}
-        value={values.email}
-        error={errors.email?.message}
-      />
-      <AnimatedSpeechInput 
-        placeholder="auth.password" 
-        type="password" 
-        {...register("password")}
-        value={values.password}
-        error={errors.password?.message}
-      />
-    </div>
+   <div className="space-y-1">
+  <AnimatedSpeechInput 
+    placeholder="auth.username" 
+    {...register("username")}
+    value={values.username}
+    error={errors.username?.message}
+    // ✅ High-contrast Vault styling: Absolute Black or Pure White
+    style={{ color: isDarkMode ? "#ffffff" : "#000000" }} 
+  />
+  
+  <AnimatedSpeechInput 
+    placeholder="auth.email" 
+    type="email" 
+    {...register("email")}
+    // Use unique keys to prevent browser autofill confusion during toggle
+    key={isLogin ? "login-email" : "signup-email"} 
+    value={values.email}
+    error={errors.email?.message}
+    style={{ color: isDarkMode ? "#ffffff" : "#000000" }}
+  />
+  
+  <AnimatedSpeechInput 
+    placeholder="auth.password" 
+    type="password" 
+    {...register("password")}
+    value={values.password}
+    error={errors.password?.message}
+    style={{ color: isDarkMode ? "#ffffff" : "#000000" }}
+  />
+</div>
 
-    <button type="submit" disabled={isLoading} className="w-full bg-indigo-600 text-white py-3.5 rounded-xl font-bold shadow-lg hover:bg-indigo-700 transition-all active:scale-[0.98] disabled:opacity-70">
+    <button
+      type="submit"
+      disabled={isLoading}
+      className="w-full bg-indigo-600 text-white py-3.5 rounded-xl font-bold shadow-lg hover:bg-indigo-700 transition-all active:scale-[0.98] disabled:opacity-70"
+    >
       {isLoading ? "..." : t("auth.create_account_btn")}
     </button>
     <p className="md:hidden text-center text-sm text-zinc-500">
-      {t("auth.have_account")} <span onClick={toggleMode} className="text-indigo-600 font-bold cursor-pointer">{t("auth.sign_in")}</span>
+      {t("auth.have_account")}{" "}
+      <span
+        onClick={toggleMode}
+        className="text-indigo-600 font-bold cursor-pointer"
+      >
+        {t("auth.sign_in")}
+      </span>
     </p>
   </form>
 );

@@ -28,7 +28,9 @@
     "expense": "Expense",
     "update": "Update Ledger",
     "processing": "Synchronizing...",
-    "note": "Note"
+    "note": "Note",
+    "note_placeholder": "Add a note",
+    "amount": "Amount"
   },
   "auth": {
     "welcome_back": "Welcome Back!",
@@ -283,5 +285,60 @@
     "saving_btn": "Saving...",
     "success_msg": "Profile synchronized!",
     "error_msg": "Update failed"
+  },
+  "debts": {
+    "title": "Debt Ledger",
+    "subtitle": "Track your personal IOUs and loans",
+    "new_record": "New Record",
+    "lent_label": "I Lent (Receivable)",
+    "borrowed_label": "I Borrowed (Payable)",
+    "search_placeholder": "Search by name or amount...",
+    "syncing": "Synchronizing Ledger...",
+    "empty_state": "No financial obligations found matching your search",
+    "i_lent": "I Lent",
+    "i_borrowed": "I Borrowed",
+    "source_account": "Funding Account",
+    "person": "Counterparty",
+    "add_new_person": "Add New Person",
+    "select_existing": "Select Existing",
+    "person_name_placeholder": "Enter full name...",
+    "lent_info_tip": "Recording this as 'Lent' will decrease your account balance and create a receivable entry.",
+    "borrowed_info_tip": "Recording this as 'Borrowed' will increase your account balance and create a payable entry.",
+    "save_record": "Confirm Record",
+    "amount_required": "Amount is required",
+    "account_required": "Please select an account",
+    "person_email_placeholder": "Email Address",
+    "details": {
+      "title": "Financial Timeline",
+      "history_with": "History with {{name}}",
+      "record_payment": "Record Payment",
+      "receivable": "Receivable Asset",
+      "payable": "Payable Liability",
+      "outstanding": "Current Outstanding Balance",
+      "principal": "Initial Principal",
+      "settled_amount": "Settled Amount",
+      "commenced": "Commenced",
+      "interest": "Interest",
+      "annual": "Annual",
+      "settlement_path": "Settlement Path",
+      "origination": "Debt Origination",
+      "partial_settlement": "Partial Settlement",
+      "fully_settled": "Debt Fully Settled",
+      "settled_desc": "This obligation has been cleared in full.",
+      "syncing": "Synchronizing Timeline...",
+      "not_found": "Record not found."
+    },
+    "repay": {
+      "title": "Record Payment",
+      "subtitle": "Reducing debt balance",
+      "paying_to": "Paying to",
+      "outstanding": "Outstanding",
+      "pay_full": "Pay Full",
+      "settle_warning": "This payment will fully settle the debt!",
+      "confirm_btn": "Confirm Payment",
+      "success": "Payment Recorded!",
+      "err_greater_zero": "Amount must be greater than 0",
+      "err_exceed_balance": "Amount cannot exceed the remaining balance of {{symbol}}{{max}}"
+    }
   }
 }

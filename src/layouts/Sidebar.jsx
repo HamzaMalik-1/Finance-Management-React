@@ -118,7 +118,7 @@ const Sidebar = () => {
       <div className="p-4 border-t border-zinc-100 dark:border-zinc-800">
         <div className="flex items-center gap-3">
           <div className="w-10 h-10 rounded-full bg-indigo-500 flex-shrink-0 flex items-center justify-center text-white font-bold">
-            {user?.first_name?.[0] || "U"}
+            {user?.display_name?.[0] || "U"}
           </div>
           {isExpanded && (
             <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} className="overflow-hidden text-start">

@@ -11,26 +11,39 @@ export const accountApi = createApi({
       return headers;
     },
   }),
-  tagTypes: ["Accounts"],
+  tagTypes: ["Accounts", "AccountDetails"], // Added specific tag for details
   endpoints: (builder) => ({
     getAccounts: builder.query({
       query: (userId) => `/user/${userId}`,
       providesTags: ["Accounts"],
     }),
+    
+    getAccountDetails: builder.query({
+      query: (id) => `/${id}`,
+      providesTags: (result, error, id) => [{ type: 'AccountDetails', id }],
+    }),
+
     addAccount: builder.mutation({
       query: (data) => ({ url: "/", method: "POST", body: data }),
       invalidatesTags: ["Accounts"],
     }),
+
     updateAccount: builder.mutation({
       query: ({ id, ...data }) => ({ url: `/${id}`, method: "PUT", body: data }),
-      invalidatesTags: ["Accounts"],
+      invalidatesTags: (result, error, { id }) => ["Accounts", { type: 'AccountDetails', id }],
     }),
 
-     deleteAccount: builder.mutation({
+    deleteAccount: builder.mutation({
       query: (id) => ({ url: `/${id}`, method: "DELETE" }),
       invalidatesTags: ["Accounts"],
     }),
   }),
 });
 
-export const { useGetAccountsQuery, useAddAccountMutation, useUpdateAccountMutation,useDeleteAccountMutation } = accountApi;
+export const {
+  useGetAccountDetailsQuery,
+  useGetAccountsQuery,
+  useAddAccountMutation,
+  useUpdateAccountMutation,
+  useDeleteAccountMutation 
+} = accountApi;

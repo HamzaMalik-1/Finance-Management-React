@@ -88,6 +88,8 @@ const AddDebtModal = ({ isOpen, onClose }) => {
 
   if (!isOpen) return null;
 
+  console.log(accountsData)
+
   return (
     <AnimatePresence>
       <div className="fixed inset-0 bg-zinc-950/40 backdrop-blur-sm flex items-center justify-center p-4 z-[150]">

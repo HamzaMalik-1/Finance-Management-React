@@ -43,7 +43,7 @@ const DebtPage = () => {
       {/* Header */}
       <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4 px-1">
         <div>
-          <h2 className="text-3xl font-black text-white tracking-tight italic uppercase">
+          <h2 className="text-3xl font-black text-app tracking-tight uppercase">
             {t('debts.title')}
           </h2>
           <p className="text-zinc-500 font-medium">

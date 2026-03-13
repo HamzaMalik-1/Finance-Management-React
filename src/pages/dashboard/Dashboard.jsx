@@ -68,7 +68,7 @@ const Dashboard = () => {
       {/* Header Section */}
       <header className="flex justify-between items-center px-1">
         <div className={isRTL ? "text-right" : "text-left"}>
-          <h2 className="text-3xl font-black text-app tracking-tight italic uppercase">
+          <h2 className="text-3xl font-black text-app tracking-tight  uppercase">
             {t('dashboard.title')}
           </h2>
           <p className="text-zinc-500 font-medium">
